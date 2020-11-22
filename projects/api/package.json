@@ -1,14 +1,21 @@
 {
   "name": "@narra/api",
-  "version": "0.0.2",
+  "version": "0.0.7",
   "description": "NARRA Angular API",
-  "author": "Michal Mocnak",
+  "author": {
+    "name": "Michal Mocnak",
+    "email": "michal@marigan.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/narra/angular-api.git"
+  },
   "license": "GPL-3.0",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.3"
   },
   "peerDependencies": {
-    "@angular/common": "~9.1.3",
-    "@angular/core": "~9.1.3"
+    "@angular/common": "~11.0.2",
+    "@angular/core": "~11.0.2"
   }
 }

@@ -1,0 +1,6 @@
+/*
+ * Public API Surface of @narra/api
+ */
+import * as narra_1 from './lib';
+export { narra_1 as narra };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLi8uLi9wcm9qZWN0cy9hcGkvc3JjLyIsInNvdXJjZXMiOlsicHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRzt5QkFFb0IsT0FBTztvQkFBbEIsS0FBSyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2YgQG5hcnJhL2FwaVxuICovXG5cbmV4cG9ydCAqIGFzIG5hcnJhIGZyb20gJy4vbGliJztcbiJdfQ==

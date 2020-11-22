@@ -1,0 +1,29 @@
+{
+  "name": "@narra/api",
+  "version": "0.0.7",
+  "description": "NARRA Angular API",
+  "author": {
+    "name": "Michal Mocnak",
+    "email": "michal@marigan.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/narra/angular-api.git"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "tslib": "^2.0.3"
+  },
+  "peerDependencies": {
+    "@angular/common": "~11.0.2",
+    "@angular/core": "~11.0.2"
+  },
+  "main": "bundles/narra-api.umd.js",
+  "module": "fesm2015/narra-api.js",
+  "es2015": "fesm2015/narra-api.js",
+  "esm2015": "esm2015/narra-api.js",
+  "fesm2015": "fesm2015/narra-api.js",
+  "typings": "narra-api.d.ts",
+  "metadata": "narra-api.metadata.json",
+  "sideEffects": false
+}
