@@ -1,6 +1,6 @@
 {
   "name": "@narra/api",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "NARRA Angular API",
   "author": {
     "name": "Michal Mocnak",
