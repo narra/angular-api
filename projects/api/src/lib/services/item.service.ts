@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, mergeMap, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Candidate, Item, Library, Proxy, Response} from '../models';
+import {Candidate, Item, Library, Meta, Proxy, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -64,6 +64,34 @@ export class ItemService {
   // GET item '/v1/items/{id}'
   public getItem(id: string): Observable<Response<Item, 'item'>> {
     return this.http.get<any>(this.serverService.query('items/' + id))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+
+  // POST new item metadata '/v1/items/{name}/metadata/new'
+  public addItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('items/' + id + '/metadata/new'), meta, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST update item metadata '/v1/items/{name}/metadata/{meta}/update'
+  public updateItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET delete item metadata '/v1/items/{name}/metadata/{meta}/delete'
+  public deleteItemMeta(id: string, meta: Pick<Meta, 'name' | 'generator'>): Observable<Response<string, 'name'>> {
+    return this.http.get<any>(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/delete?generator=' + meta.generator))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

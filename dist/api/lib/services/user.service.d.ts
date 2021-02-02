@@ -27,8 +27,11 @@ import { Response, User } from '../models';
 export declare class UserService {
     private http;
     private serverService;
+    private httpOptions;
     constructor(http: HttpClient, serverService: ServerService);
     getLoggedUser(): Observable<Response<User, 'user'>>;
     getUsers(): Observable<Response<User[], 'users'>>;
     getUser(username: string): Observable<Response<User, 'user'>>;
+    deleteUser(username: string): Observable<Response<string, 'username'>>;
+    updateUser(user: User): Observable<Response<User, 'user'>>;
 }

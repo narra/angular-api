@@ -1065,6 +1065,21 @@ class ItemService {
         return this.http.get(this.serverService.query('items/' + id))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
+    // POST new item metadata '/v1/items/{name}/metadata/new'
+    addItemMeta(id, meta) {
+        return this.http.post(this.serverService.query('items/' + id + '/metadata/new'), meta, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST update item metadata '/v1/items/{name}/metadata/{meta}/update'
+    updateItemMeta(id, meta) {
+        return this.http.post(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // GET delete item metadata '/v1/items/{name}/metadata/{meta}/delete'
+    deleteItemMeta(id, meta) {
+        return this.http.get(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/delete?generator=' + meta.generator))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
 }
 ItemService.ɵprov = ɵɵdefineInjectable({ factory: function ItemService_Factory() { return new ItemService(ɵɵinject(HttpClient), ɵɵinject(ServerService)); }, token: ItemService, providedIn: "root" });
 ItemService.decorators = [
@@ -1144,6 +1159,21 @@ class LibraryService {
         return this.http.get(this.serverService.query('libraries/' + id + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
+    // POST new library metadata '/v1/libraries/{name}/metadata/new'
+    addLibraryMeta(id, meta) {
+        return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new'), meta, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST update library metadata '/v1/libraries/{name}/metadata/{meta}/update'
+    updateLibraryMeta(id, meta) {
+        return this.http.post(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // GET delete library metadata '/v1/libraries/{name}/metadata/{meta}/delete'
+    deleteLibraryMeta(id, meta) {
+        return this.http.get(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/delete'))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
 }
 LibraryService.ɵprov = ɵɵdefineInjectable({ factory: function LibraryService_Factory() { return new LibraryService(ɵɵinject(HttpClient), ɵɵinject(ServerService)); }, token: LibraryService, providedIn: "root" });
 LibraryService.decorators = [
@@ -1216,6 +1246,21 @@ class ProjectService {
     // GET delete project '/v1/projects/{name}/delete'
     deleteProject(name) {
         return this.http.get(this.serverService.query('projects/' + name + '/delete'))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST new project metadata '/v1/projects/{name}/metadata/new'
+    addProjectMeta(name, meta) {
+        return this.http.post(this.serverService.query('projects/' + name + '/metadata/new'), meta, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
+    updateProjectMeta(name, meta) {
+        return this.http.post(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
+    deleteProjectMeta(name, meta) {
+        return this.http.get(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1557,6 +1602,11 @@ class UserService {
     constructor(http, serverService) {
         this.http = http;
         this.serverService = serverService;
+        this.httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
     }
     // GET logged user '/v1/users/me'
     getLoggedUser() {
@@ -1571,6 +1621,16 @@ class UserService {
     // GET user '/v1/users/{username}'
     getUser(username) {
         return this.http.get(this.serverService.query('users/' + username))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // GET delete user '/v1/users/{username}/delete'
+    deleteUser(username) {
+        return this.http.get(this.serverService.query('users/' + username + '/delete'))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST update user '/v1/users/{username}/update'
+    updateUser(user) {
+        return this.http.post(this.serverService.query('users/' + user.username + '/update'), user, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }

@@ -20,11 +20,9 @@
  *
  * Authors: Michal Mocnak <michal@narra.eu>
  */
-import { Author } from './author';
 export interface Meta {
     name: string;
     value: string;
-    author: Author;
     generator: string;
     public: boolean;
     updated_at: Date;

@@ -23,7 +23,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Project, Response } from '../models';
+import { Meta, Project, Response } from '../models';
 export declare class ProjectService {
     private http;
     private serverService;
@@ -35,4 +35,7 @@ export declare class ProjectService {
     addProject(project: Project): Observable<Response<Project, 'project'>>;
     updateProject(project: Project): Observable<Response<Project, 'project'>>;
     deleteProject(name: string): Observable<Response<string, 'name'>>;
+    addProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
+    updateProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
+    deleteProjectMeta(name: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>>;
 }

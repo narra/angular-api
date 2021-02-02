@@ -506,6 +506,21 @@
             return this.http.get(this.serverService.query('items/' + id))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
+        // POST new item metadata '/v1/items/{name}/metadata/new'
+        ItemService.prototype.addItemMeta = function (id, meta) {
+            return this.http.post(this.serverService.query('items/' + id + '/metadata/new'), meta, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // POST update item metadata '/v1/items/{name}/metadata/{meta}/update'
+        ItemService.prototype.updateItemMeta = function (id, meta) {
+            return this.http.post(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET delete item metadata '/v1/items/{name}/metadata/{meta}/delete'
+        ItemService.prototype.deleteItemMeta = function (id, meta) {
+            return this.http.get(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/delete?generator=' + meta.generator))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
         return ItemService;
     }());
     ItemService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ItemService_Factory() { return new ItemService(i0.ɵɵinject(i1.HttpClient), i0.ɵɵinject(ServerService)); }, token: ItemService, providedIn: "root" });
@@ -586,6 +601,21 @@
             return this.http.get(this.serverService.query('libraries/' + id + '/delete'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
+        // POST new library metadata '/v1/libraries/{name}/metadata/new'
+        LibraryService.prototype.addLibraryMeta = function (id, meta) {
+            return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new'), meta, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // POST update library metadata '/v1/libraries/{name}/metadata/{meta}/update'
+        LibraryService.prototype.updateLibraryMeta = function (id, meta) {
+            return this.http.post(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET delete library metadata '/v1/libraries/{name}/metadata/{meta}/delete'
+        LibraryService.prototype.deleteLibraryMeta = function (id, meta) {
+            return this.http.get(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/delete'))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
         return LibraryService;
     }());
     LibraryService.ɵprov = i0.ɵɵdefineInjectable({ factory: function LibraryService_Factory() { return new LibraryService(i0.ɵɵinject(i1.HttpClient), i0.ɵɵinject(ServerService)); }, token: LibraryService, providedIn: "root" });
@@ -659,6 +689,21 @@
         // GET delete project '/v1/projects/{name}/delete'
         ProjectService.prototype.deleteProject = function (name) {
             return this.http.get(this.serverService.query('projects/' + name + '/delete'))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // POST new project metadata '/v1/projects/{name}/metadata/new'
+        ProjectService.prototype.addProjectMeta = function (name, meta) {
+            return this.http.post(this.serverService.query('projects/' + name + '/metadata/new'), meta, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
+        ProjectService.prototype.updateProjectMeta = function (name, meta) {
+            return this.http.post(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
+        ProjectService.prototype.deleteProjectMeta = function (name, meta) {
+            return this.http.get(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/delete'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return ProjectService;
@@ -1007,6 +1052,11 @@
         function UserService(http, serverService) {
             this.http = http;
             this.serverService = serverService;
+            this.httpOptions = {
+                headers: new i1.HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+            };
         }
         // GET logged user '/v1/users/me'
         UserService.prototype.getLoggedUser = function () {
@@ -1021,6 +1071,16 @@
         // GET user '/v1/users/{username}'
         UserService.prototype.getUser = function (username) {
             return this.http.get(this.serverService.query('users/' + username))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET delete user '/v1/users/{username}/delete'
+        UserService.prototype.deleteUser = function (username) {
+            return this.http.get(this.serverService.query('users/' + username + '/delete'))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // POST update user '/v1/users/{username}/update'
+        UserService.prototype.updateUser = function (user) {
+            return this.http.post(this.serverService.query('users/' + user.username + '/update'), user, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return UserService;

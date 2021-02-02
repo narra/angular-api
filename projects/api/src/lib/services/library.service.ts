@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Item, Library, Response} from '../models';
+import {Item, Library, Meta, Project, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -100,6 +100,33 @@ export class LibraryService {
   // GET delete library '/v1/libraries/{id}/delete'
   public deleteLibrary(id: string): Observable<Response<string, 'id'>> {
     return this.http.get<any>(this.serverService.query('libraries/' + id + '/delete'))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST new library metadata '/v1/libraries/{name}/metadata/new'
+  public addLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('libraries/' + id + '/metadata/new'), meta, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST update library metadata '/v1/libraries/{name}/metadata/{meta}/update'
+  public updateLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET delete library metadata '/v1/libraries/{name}/metadata/{meta}/delete'
+  public deleteLibraryMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>> {
+    return this.http.get<any>(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/delete'))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

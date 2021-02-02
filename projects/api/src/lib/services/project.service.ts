@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Project, Response} from '../models';
+import {Meta, Project, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -91,6 +91,33 @@ export class ProjectService {
   // GET delete project '/v1/projects/{name}/delete'
   public deleteProject(name: string): Observable<Response<string, 'name'>> {
     return this.http.get<any>(this.serverService.query('projects/' + name + '/delete'))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST new project metadata '/v1/projects/{name}/metadata/new'
+  public addProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + name + '/metadata/new'), meta, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
+  public updateProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
+  public deleteProjectMeta(name: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/delete'))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

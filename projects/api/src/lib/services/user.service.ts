@@ -22,17 +22,24 @@
  */
 
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
 import {Response, User} from '../models';
 import {ErrorHelper} from '../helpers';
+import {RoleType} from "../enums";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
   constructor(private http: HttpClient, private serverService: ServerService) {
   }
@@ -58,6 +65,24 @@ export class UserService {
   // GET user '/v1/users/{username}'
   public getUser(username: string): Observable<Response<User, 'user'>> {
     return this.http.get<any>(this.serverService.query('users/' + username))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET delete user '/v1/users/{username}/delete'
+  public deleteUser(username: string): Observable<Response<string, 'username'>> {
+    return this.http.get<any>(this.serverService.query('users/' + username + '/delete'))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST update user '/v1/users/{username}/update'
+  public updateUser(user: User): Observable<Response<User, 'user'>> {
+    return this.http.post<any>(this.serverService.query('users/' + user.username + '/update'), user, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
