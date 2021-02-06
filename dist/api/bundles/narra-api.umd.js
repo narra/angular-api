@@ -662,8 +662,8 @@
             };
         }
         // POST validate '/v1/projects/validate'
-        ProjectService.prototype.validate = function (name, title) {
-            return this.http.post(this.serverService.query('projects/validate'), { name: name, title: title }, this.httpOptions)
+        ProjectService.prototype.validate = function (id, name) {
+            return this.http.post(this.serverService.query('projects/validate'), { id: id, name: name }, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET projects '/v1/projects'
@@ -672,8 +672,8 @@
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET project '/v1/projects/{name}'
-        ProjectService.prototype.getProject = function (name) {
-            return this.http.get(this.serverService.query('projects/' + name))
+        ProjectService.prototype.getProject = function (id) {
+            return this.http.get(this.serverService.query('projects/' + id))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new project '/v1/projects/new'
@@ -683,27 +683,27 @@
         };
         // POST update project '/v1/projects/{name}/update'
         ProjectService.prototype.updateProject = function (project) {
-            return this.http.post(this.serverService.query('projects/' + project.name + '/update'), project, this.httpOptions)
+            return this.http.post(this.serverService.query('projects/' + project.id + '/update'), project, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete project '/v1/projects/{name}/delete'
-        ProjectService.prototype.deleteProject = function (name) {
-            return this.http.get(this.serverService.query('projects/' + name + '/delete'))
+        ProjectService.prototype.deleteProject = function (id) {
+            return this.http.get(this.serverService.query('projects/' + id + '/delete'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new project metadata '/v1/projects/{name}/metadata/new'
-        ProjectService.prototype.addProjectMeta = function (name, meta) {
-            return this.http.post(this.serverService.query('projects/' + name + '/metadata/new'), meta, this.httpOptions)
+        ProjectService.prototype.addProjectMeta = function (id, meta) {
+            return this.http.post(this.serverService.query('projects/' + id + '/metadata/new'), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
-        ProjectService.prototype.updateProjectMeta = function (name, meta) {
-            return this.http.post(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+        ProjectService.prototype.updateProjectMeta = function (id, meta) {
+            return this.http.post(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
-        ProjectService.prototype.deleteProjectMeta = function (name, meta) {
-            return this.http.get(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/delete'))
+        ProjectService.prototype.deleteProjectMeta = function (id, meta) {
+            return this.http.get(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/delete'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return ProjectService;

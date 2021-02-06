@@ -24,7 +24,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {retry, map, catchError} from 'rxjs/operators';
+import {retry, catchError} from 'rxjs/operators';
 import {ServerService} from './server.service';
 import {Provider, Response} from '../models';
 import {ErrorHelper} from '../helpers';

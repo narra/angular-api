@@ -25,8 +25,8 @@ import { Library } from './library';
 import { Authorship } from './authorship';
 import { Metable } from './metable';
 export interface Project extends Authorship, Metable {
+    id: string;
     name: string;
-    title: string;
     description: string;
     public: boolean;
     scenario: Scenario;

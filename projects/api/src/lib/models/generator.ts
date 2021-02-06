@@ -22,7 +22,7 @@
  */
 
 export interface Generator {
-  title: string;
+  name: string;
   description: string;
   dependency: string[];
   priority: number;

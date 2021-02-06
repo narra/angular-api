@@ -29,13 +29,13 @@ export declare class ProjectService {
     private serverService;
     private httpOptions;
     constructor(http: HttpClient, serverService: ServerService);
-    validate(name: string, title: string): Observable<Response<boolean, 'validation'>>;
+    validate(id: string, name: string): Observable<Response<boolean, 'validation'>>;
     getProjects(): Observable<Response<Project[], 'projects'>>;
-    getProject(name: string): Observable<Response<Project, 'project'>>;
+    getProject(id: string): Observable<Response<Project, 'project'>>;
     addProject(project: Project): Observable<Response<Project, 'project'>>;
     updateProject(project: Project): Observable<Response<Project, 'project'>>;
-    deleteProject(name: string): Observable<Response<string, 'name'>>;
-    addProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
-    updateProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
-    deleteProjectMeta(name: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>>;
+    deleteProject(id: string): Observable<Response<string, 'name'>>;
+    addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
+    updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
+    deleteProjectMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>>;
 }

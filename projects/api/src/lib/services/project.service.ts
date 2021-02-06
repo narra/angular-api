@@ -44,8 +44,8 @@ export class ProjectService {
   }
 
   // POST validate '/v1/projects/validate'
-  public validate(name: string, title: string): Observable<Response<boolean, 'validation'>> {
-    return this.http.post<any>(this.serverService.query('projects/validate'), {name, title}, this.httpOptions)
+  public validate(id: string, name: string): Observable<Response<boolean, 'validation'>> {
+    return this.http.post<any>(this.serverService.query('projects/validate'), {id, name}, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -62,8 +62,8 @@ export class ProjectService {
   }
 
   // GET project '/v1/projects/{name}'
-  public getProject(name: string): Observable<Response<Project, 'project'>> {
-    return this.http.get<any>(this.serverService.query('projects/' + name))
+  public getProject(id: string): Observable<Response<Project, 'project'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -81,7 +81,7 @@ export class ProjectService {
 
   // POST update project '/v1/projects/{name}/update'
   public updateProject(project: Project): Observable<Response<Project, 'project'>> {
-    return this.http.post<any>(this.serverService.query('projects/' + project.name + '/update'), project, this.httpOptions)
+    return this.http.post<any>(this.serverService.query('projects/' + project.id + '/update'), project, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -89,8 +89,8 @@ export class ProjectService {
   }
 
   // GET delete project '/v1/projects/{name}/delete'
-  public deleteProject(name: string): Observable<Response<string, 'name'>> {
-    return this.http.get<any>(this.serverService.query('projects/' + name + '/delete'))
+  public deleteProject(id: string): Observable<Response<string, 'name'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id + '/delete'))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -98,8 +98,8 @@ export class ProjectService {
   }
 
   // POST new project metadata '/v1/projects/{name}/metadata/new'
-  public addProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('projects/' + name + '/metadata/new'), meta, this.httpOptions)
+  public addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/new'), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -107,8 +107,8 @@ export class ProjectService {
   }
 
   // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
-  public updateProjectMeta(name: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+  public updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -116,8 +116,8 @@ export class ProjectService {
   }
 
   // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
-  public deleteProjectMeta(name: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>> {
-    return this.http.get<any>(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/delete'))
+  public deleteProjectMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/delete'))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

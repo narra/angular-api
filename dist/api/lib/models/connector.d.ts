@@ -22,7 +22,7 @@
  */
 export interface Connector {
     identifier: string;
-    title: string;
+    name: string;
     description: string;
     priority: number;
 }

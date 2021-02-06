@@ -1219,8 +1219,8 @@ class ProjectService {
         };
     }
     // POST validate '/v1/projects/validate'
-    validate(name, title) {
-        return this.http.post(this.serverService.query('projects/validate'), { name, title }, this.httpOptions)
+    validate(id, name) {
+        return this.http.post(this.serverService.query('projects/validate'), { id, name }, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET projects '/v1/projects'
@@ -1229,8 +1229,8 @@ class ProjectService {
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET project '/v1/projects/{name}'
-    getProject(name) {
-        return this.http.get(this.serverService.query('projects/' + name))
+    getProject(id) {
+        return this.http.get(this.serverService.query('projects/' + id))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new project '/v1/projects/new'
@@ -1240,27 +1240,27 @@ class ProjectService {
     }
     // POST update project '/v1/projects/{name}/update'
     updateProject(project) {
-        return this.http.post(this.serverService.query('projects/' + project.name + '/update'), project, this.httpOptions)
+        return this.http.post(this.serverService.query('projects/' + project.id + '/update'), project, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete project '/v1/projects/{name}/delete'
-    deleteProject(name) {
-        return this.http.get(this.serverService.query('projects/' + name + '/delete'))
+    deleteProject(id) {
+        return this.http.get(this.serverService.query('projects/' + id + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new project metadata '/v1/projects/{name}/metadata/new'
-    addProjectMeta(name, meta) {
-        return this.http.post(this.serverService.query('projects/' + name + '/metadata/new'), meta, this.httpOptions)
+    addProjectMeta(id, meta) {
+        return this.http.post(this.serverService.query('projects/' + id + '/metadata/new'), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
-    updateProjectMeta(name, meta) {
-        return this.http.post(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+    updateProjectMeta(id, meta) {
+        return this.http.post(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
-    deleteProjectMeta(name, meta) {
-        return this.http.get(this.serverService.query('projects/' + name + '/metadata/' + meta.name + '/delete'))
+    deleteProjectMeta(id, meta) {
+        return this.http.get(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
