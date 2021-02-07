@@ -95,7 +95,7 @@ export class ServerService {
       // prepare generators selector
       if (query.filters) {
         query.filters.forEach((filter: string) => {
-          params += 'filters[]=' + filter;
+          params += 'filters[]=' + filter + '&';
         });
       }
     }

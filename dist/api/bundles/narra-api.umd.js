@@ -356,7 +356,7 @@
                 // prepare generators selector
                 if (query.filters) {
                     query.filters.forEach(function (filter) {
-                        params += 'filters[]=' + filter;
+                        params += 'filters[]=' + filter + '&';
                     });
                 }
             }
