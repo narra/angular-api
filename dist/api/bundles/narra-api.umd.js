@@ -290,7 +290,23 @@
             // default values
             this.server = 'http://api.narra';
             this.version = 1;
+            this.initialized = false;
         }
+        //
+        // initialize
+        //
+        ServerService.prototype.initialize = function (server, version) {
+            // set server if provided
+            if (server) {
+                this.server = server;
+            }
+            // set version if provided
+            if (version) {
+                this.version = version;
+            }
+            // set init flag
+            this.initialized = true;
+        };
         Object.defineProperty(ServerService.prototype, "apiServer", {
             //
             // getters
@@ -298,11 +314,19 @@
             get: function () {
                 return this.server;
             },
-            //
-            // setters
-            //
-            set: function (server) {
-                this.server = server;
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(ServerService.prototype, "apiVersion", {
+            get: function () {
+                return this.version;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(ServerService.prototype, "isInitialized", {
+            get: function () {
+                return this.initialized;
             },
             enumerable: false,
             configurable: true
@@ -310,8 +334,33 @@
         //
         // public methods
         //
-        ServerService.prototype.query = function (path) {
-            return this.server + '/v' + this.version + '/' + path;
+        ServerService.prototype.query = function (path, query) {
+            // prepare params
+            var params = path;
+            // check for query
+            if (query) {
+                // prepare query param string
+                params += '?';
+                // prepare libraries selector
+                if (query.libraries) {
+                    query.libraries.forEach(function (library) {
+                        params += 'libraries[]=' + library + '&';
+                    });
+                }
+                // prepare generators selector
+                if (query.generators) {
+                    query.generators.forEach(function (generator) {
+                        params += 'generators[]=' + generator + '&';
+                    });
+                }
+                // prepare generators selector
+                if (query.filters) {
+                    query.filters.forEach(function (filter) {
+                        params += 'filters[]=' + filter;
+                    });
+                }
+            }
+            return this.server + '/v' + this.version + '/' + params;
         };
         return ServerService;
     }());
@@ -351,8 +400,8 @@
             this.serverService = serverService;
         }
         // GET connectors '/v1/connectors'
-        ConnectorService.prototype.getConnectors = function () {
-            return this.http.get(this.serverService.query('connectors'))
+        ConnectorService.prototype.getConnectors = function (query) {
+            return this.http.get(this.serverService.query('connectors', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return ConnectorService;
@@ -396,9 +445,9 @@
             this.serverService = serverService;
         }
         // GET events by default '/v1/events/me' possibly can be modified to admin's all '/v1/events'
-        EventService.prototype.getEvents = function (filter) {
+        EventService.prototype.getEvents = function (filter, query) {
             if (filter === void 0) { filter = 'me'; }
-            return this.http.get(this.serverService.query('events/' + filter))
+            return this.http.get(this.serverService.query('events/' + filter, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return EventService;
@@ -442,8 +491,8 @@
             this.serverService = serverService;
         }
         // GET generators '/v1/generators'
-        GeneratorService.prototype.getGenerators = function () {
-            return this.http.get(this.serverService.query('generators'))
+        GeneratorService.prototype.getGenerators = function (query) {
+            return this.http.get(this.serverService.query('generators', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return GeneratorService;
@@ -492,28 +541,28 @@
             };
         }
         // POST check url '/v1/items/check'
-        ItemService.prototype.check = function (url) {
-            return this.http.post(this.serverService.query('items/check'), { url: url }, this.httpOptions)
+        ItemService.prototype.check = function (url, query) {
+            return this.http.post(this.serverService.query('items/check', query), { url: url }, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new item '/v1/items/new'
-        ItemService.prototype.addItems = function (candidates) {
-            return this.http.post(this.serverService.query('items/new'), { candidates: candidates }, this.httpOptions)
+        ItemService.prototype.addItems = function (candidates, query) {
+            return this.http.post(this.serverService.query('items/new', query), { candidates: candidates }, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET item '/v1/items/{id}'
-        ItemService.prototype.getItem = function (id) {
-            return this.http.get(this.serverService.query('items/' + id))
+        ItemService.prototype.getItem = function (id, query) {
+            return this.http.get(this.serverService.query('items/' + id, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new item metadata '/v1/items/{name}/metadata/new'
-        ItemService.prototype.addItemMeta = function (id, meta) {
-            return this.http.post(this.serverService.query('items/' + id + '/metadata/new'), meta, this.httpOptions)
+        ItemService.prototype.addItemMeta = function (id, meta, query) {
+            return this.http.post(this.serverService.query('items/' + id + '/metadata/new', query), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update item metadata '/v1/items/{name}/metadata/{meta}/update'
-        ItemService.prototype.updateItemMeta = function (id, meta) {
-            return this.http.post(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+        ItemService.prototype.updateItemMeta = function (id, meta, query) {
+            return this.http.post(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete item metadata '/v1/items/{name}/metadata/{meta}/delete'
@@ -567,33 +616,33 @@
             };
         }
         // POST validate '/v1/libraries/validate'
-        LibraryService.prototype.validate = function (name) {
-            return this.http.post(this.serverService.query('libraries/validate'), { name: name }, this.httpOptions)
+        LibraryService.prototype.validate = function (name, query) {
+            return this.http.post(this.serverService.query('libraries/validate', query), { name: name }, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET libraries '/v1/libraries'
-        LibraryService.prototype.getLibraries = function () {
-            return this.http.get(this.serverService.query('libraries'))
+        LibraryService.prototype.getLibraries = function (query) {
+            return this.http.get(this.serverService.query('libraries', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET library '/v1/libraries/{id}'
-        LibraryService.prototype.getLibrary = function (id) {
-            return this.http.get(this.serverService.query('libraries/' + id))
+        LibraryService.prototype.getLibrary = function (id, query) {
+            return this.http.get(this.serverService.query('libraries/' + id, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET library items '/v1/libraries/{id}/items'
-        LibraryService.prototype.getItems = function (id) {
-            return this.http.get(this.serverService.query('libraries/' + id + '/items'))
+        LibraryService.prototype.getItems = function (id, query) {
+            return this.http.get(this.serverService.query('libraries/' + id + '/items', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new library '/v1/libraries/new'
-        LibraryService.prototype.addLibrary = function (library) {
-            return this.http.post(this.serverService.query('libraries/new'), library, this.httpOptions)
+        LibraryService.prototype.addLibrary = function (library, query) {
+            return this.http.post(this.serverService.query('libraries/new', query), library, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update library '/v1/libraries/{id}/update'
-        LibraryService.prototype.updateLibrary = function (library) {
-            return this.http.post(this.serverService.query('libraries/' + library.id + '/update'), library, this.httpOptions)
+        LibraryService.prototype.updateLibrary = function (library, query) {
+            return this.http.post(this.serverService.query('libraries/' + library.id + '/update', query), library, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete library '/v1/libraries/{id}/delete'
@@ -602,13 +651,13 @@
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new library metadata '/v1/libraries/{name}/metadata/new'
-        LibraryService.prototype.addLibraryMeta = function (id, meta) {
-            return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new'), meta, this.httpOptions)
+        LibraryService.prototype.addLibraryMeta = function (id, meta, query) {
+            return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new', query), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update library metadata '/v1/libraries/{name}/metadata/{meta}/update'
-        LibraryService.prototype.updateLibraryMeta = function (id, meta) {
-            return this.http.post(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+        LibraryService.prototype.updateLibraryMeta = function (id, meta, query) {
+            return this.http.post(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete library metadata '/v1/libraries/{name}/metadata/{meta}/delete'
@@ -662,28 +711,33 @@
             };
         }
         // POST validate '/v1/projects/validate'
-        ProjectService.prototype.validate = function (id, name) {
-            return this.http.post(this.serverService.query('projects/validate'), { id: id, name: name }, this.httpOptions)
+        ProjectService.prototype.validate = function (id, name, query) {
+            return this.http.post(this.serverService.query('projects/validate', query), { id: id, name: name }, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET projects '/v1/projects'
-        ProjectService.prototype.getProjects = function () {
-            return this.http.get(this.serverService.query('projects'))
+        ProjectService.prototype.getProjects = function (query) {
+            return this.http.get(this.serverService.query('projects', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET project '/v1/projects/{name}'
-        ProjectService.prototype.getProject = function (id) {
-            return this.http.get(this.serverService.query('projects/' + id))
+        ProjectService.prototype.getProject = function (id, query) {
+            return this.http.get(this.serverService.query('projects/' + id, query))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET project '/v1/projects/{name}/items'
+        ProjectService.prototype.getProjectItems = function (id, query) {
+            return this.http.get(this.serverService.query('projects/' + id + '/items', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new project '/v1/projects/new'
-        ProjectService.prototype.addProject = function (project) {
-            return this.http.post(this.serverService.query('projects/new'), project, this.httpOptions)
+        ProjectService.prototype.addProject = function (project, query) {
+            return this.http.post(this.serverService.query('projects/new', query), project, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update project '/v1/projects/{name}/update'
-        ProjectService.prototype.updateProject = function (project) {
-            return this.http.post(this.serverService.query('projects/' + project.id + '/update'), project, this.httpOptions)
+        ProjectService.prototype.updateProject = function (project, query) {
+            return this.http.post(this.serverService.query('projects/' + project.id + '/update', query), project, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete project '/v1/projects/{name}/delete'
@@ -692,13 +746,13 @@
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new project metadata '/v1/projects/{name}/metadata/new'
-        ProjectService.prototype.addProjectMeta = function (id, meta) {
-            return this.http.post(this.serverService.query('projects/' + id + '/metadata/new'), meta, this.httpOptions)
+        ProjectService.prototype.addProjectMeta = function (id, meta, query) {
+            return this.http.post(this.serverService.query('projects/' + id + '/metadata/new', query), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
-        ProjectService.prototype.updateProjectMeta = function (id, meta) {
-            return this.http.post(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+        ProjectService.prototype.updateProjectMeta = function (id, meta, query) {
+            return this.http.post(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
@@ -847,23 +901,23 @@
             };
         }
         // GET settings '/v1/settings'
-        SettingService.prototype.getSettings = function () {
-            return this.http.get(this.serverService.query('settings'))
+        SettingService.prototype.getSettings = function (query) {
+            return this.http.get(this.serverService.query('settings', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET setting '/v1/settings/{name}'
-        SettingService.prototype.getSetting = function (name) {
-            return this.http.get(this.serverService.query('settings/' + name))
+        SettingService.prototype.getSetting = function (name, query) {
+            return this.http.get(this.serverService.query('settings/' + name, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update setting '/v1/settings/{name}/update'
-        SettingService.prototype.updateSetting = function (setting) {
-            return this.http.post(this.serverService.query('settings/' + name + '/update'), setting, this.httpOptions)
+        SettingService.prototype.updateSetting = function (setting, query) {
+            return this.http.post(this.serverService.query('settings/' + name + '/update', query), setting, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET settings default values '/v1/settings/defaults'
-        SettingService.prototype.getDefaults = function () {
-            return this.http.get(this.serverService.query('settings/defaults'))
+        SettingService.prototype.getDefaults = function (query) {
+            return this.http.get(this.serverService.query('settings/defaults', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return SettingService;
@@ -907,8 +961,8 @@
             this.serverService = serverService;
         }
         // GET synthesizers '/v1/synthesizers'
-        SynthesizerService.prototype.getSynthesizers = function () {
-            return this.http.get(this.serverService.query('synthesizers'))
+        SynthesizerService.prototype.getSynthesizers = function (query) {
+            return this.http.get(this.serverService.query('synthesizers', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return SynthesizerService;
@@ -952,13 +1006,13 @@
             this.serverService = serverService;
         }
         // GET users '/v1/system/version'
-        SystemService.prototype.getVersion = function () {
-            return this.http.get(this.serverService.query('system/version'))
+        SystemService.prototype.getVersion = function (query) {
+            return this.http.get(this.serverService.query('system/version', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET users '/v1/system/modules'
-        SystemService.prototype.getModules = function () {
-            return this.http.get(this.serverService.query('system/modules'))
+        SystemService.prototype.getModules = function (query) {
+            return this.http.get(this.serverService.query('system/modules', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return SystemService;
@@ -1059,18 +1113,18 @@
             };
         }
         // GET logged user '/v1/users/me'
-        UserService.prototype.getLoggedUser = function () {
-            return this.http.get(this.serverService.query('users/me'))
+        UserService.prototype.getLoggedUser = function (query) {
+            return this.http.get(this.serverService.query('users/me', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET users '/v1/users'
-        UserService.prototype.getUsers = function () {
-            return this.http.get(this.serverService.query('users'))
+        UserService.prototype.getUsers = function (query) {
+            return this.http.get(this.serverService.query('users', query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET user '/v1/users/{username}'
-        UserService.prototype.getUser = function (username) {
-            return this.http.get(this.serverService.query('users/' + username))
+        UserService.prototype.getUser = function (username, query) {
+            return this.http.get(this.serverService.query('users/' + username, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET delete user '/v1/users/{username}/delete'
@@ -1079,8 +1133,8 @@
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST update user '/v1/users/{username}/update'
-        UserService.prototype.updateUser = function (user) {
-            return this.http.post(this.serverService.query('users/' + user.username + '/update'), user, this.httpOptions)
+        UserService.prototype.updateUser = function (user, query) {
+            return this.http.post(this.serverService.query('users/' + user.username + '/update', query), user, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return UserService;

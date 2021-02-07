@@ -26,7 +26,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {retry, catchError} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Event, Response} from '../models';
+import {Event, Query, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -38,8 +38,8 @@ export class EventService {
   }
 
   // GET events by default '/v1/events/me' possibly can be modified to admin's all '/v1/events'
-  public getEvents(filter: string = 'me'): Observable<Response<Event[], 'events'>> {
-    return this.http.get<any>(this.serverService.query('events/' + filter))
+  public getEvents(filter: string = 'me', query?: Query): Observable<Response<Event[], 'events'>> {
+    return this.http.get<any>(this.serverService.query('events/' + filter, query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

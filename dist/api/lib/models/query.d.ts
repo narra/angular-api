@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright (C) 2020 narra.eu
+ * Copyright (C) 2021 narra.eu
  *
  * This file is part of Narra Angular API.
  *
@@ -20,15 +20,8 @@
  *
  * Authors: Michal Mocnak <michal@narra.eu>
  */
-import { Query } from '../models';
-export declare class ServerService {
-    private server;
-    private version;
-    private initialized;
-    constructor();
-    initialize(server?: string, version?: number): void;
-    get apiServer(): string;
-    get apiVersion(): number;
-    get isInitialized(): boolean;
-    query(path: string, query?: Query): string;
+export interface Query {
+    libraries: string[];
+    generators: string[];
+    filters: string[];
 }

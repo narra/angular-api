@@ -22,26 +22,37 @@
  */
 
 import {Injectable} from '@angular/core';
+import {Query} from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServerService {
   private server: string;
-  readonly version: number;
-
+  private version: number;
+  private initialized: boolean;
 
   constructor() {
     // default values
     this.server = 'http://api.narra';
     this.version = 1;
+    this.initialized = false;
   }
 
   //
-  // setters
+  // initialize
   //
-  public set apiServer(server: string) {
-    this.server = server;
+  public initialize(server?: string, version?: number): void {
+    // set server if provided
+    if (server) {
+      this.server = server;
+    }
+    // set version if provided
+    if (version) {
+      this.version = version;
+    }
+    // set init flag
+    this.initialized = true;
   }
 
   //
@@ -51,10 +62,43 @@ export class ServerService {
     return this.server;
   }
 
+  public get apiVersion(): number {
+    return this.version;
+  }
+
+  public get isInitialized(): boolean {
+    return this.initialized;
+  }
+
   //
   // public methods
   //
-  public query(path: string): string {
-    return this.server + '/v' + this.version + '/' + path;
+  public query(path: string, query?: Query): string {
+    // prepare params
+    let params = path;
+    // check for query
+    if (query) {
+      // prepare query param string
+      params += '?';
+      // prepare libraries selector
+      if (query.libraries) {
+        query.libraries.forEach((library: string) => {
+          params += 'libraries[]=' + library + '&';
+        });
+      }
+      // prepare generators selector
+      if (query.generators) {
+        query.generators.forEach((generator: string) => {
+          params += 'generators[]=' + generator + '&';
+        });
+      }
+      // prepare generators selector
+      if (query.filters) {
+        query.filters.forEach((filter: string) => {
+          params += 'filters[]=' + filter;
+        });
+      }
+    }
+    return this.server + '/v' + this.version + '/' + params;
   }
 }

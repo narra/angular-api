@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, mergeMap, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Candidate, Item, Library, Meta, Proxy, Response} from '../models';
+import {Candidate, Item, Library, Meta, Proxy, Query, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -44,8 +44,8 @@ export class ItemService {
   }
 
   // POST check url '/v1/items/check'
-  public check(url: string): Observable<Response<Proxy[], 'proxies'>> {
-    return this.http.post<any>(this.serverService.query('items/check'), { url }, this.httpOptions)
+  public check(url: string, query?: Query): Observable<Response<Proxy[], 'proxies'>> {
+    return this.http.post<any>(this.serverService.query('items/check', query), { url }, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -53,8 +53,8 @@ export class ItemService {
   }
 
   // POST new item '/v1/items/new'
-  public addItems(candidates: Candidate[]): Observable<Response<string[], 'ids'>> {
-    return this.http.post<any>(this.serverService.query('items/new'), { candidates }, this.httpOptions)
+  public addItems(candidates: Candidate[], query?: Query): Observable<Response<string[], 'ids'>> {
+    return this.http.post<any>(this.serverService.query('items/new', query), { candidates }, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -62,8 +62,8 @@ export class ItemService {
   }
 
   // GET item '/v1/items/{id}'
-  public getItem(id: string): Observable<Response<Item, 'item'>> {
-    return this.http.get<any>(this.serverService.query('items/' + id))
+  public getItem(id: string, query?: Query): Observable<Response<Item, 'item'>> {
+    return this.http.get<any>(this.serverService.query('items/' + id, query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -72,8 +72,8 @@ export class ItemService {
 
 
   // POST new item metadata '/v1/items/{name}/metadata/new'
-  public addItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('items/' + id + '/metadata/new'), meta, this.httpOptions)
+  public addItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, query?: Query): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('items/' + id + '/metadata/new', query), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -81,8 +81,8 @@ export class ItemService {
   }
 
   // POST update item metadata '/v1/items/{name}/metadata/{meta}/update'
-  public updateItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+  public updateItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, query?: Query): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

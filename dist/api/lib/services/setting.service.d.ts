@@ -22,15 +22,15 @@
  */
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Response, Setting } from '../models';
+import { Query, Response, Setting } from '../models';
 import { ServerService } from './server.service';
 export declare class SettingService {
     private http;
     private serverService;
     private httpOptions;
     constructor(http: HttpClient, serverService: ServerService);
-    getSettings(): Observable<Response<Setting[], 'settings'>>;
-    getSetting(name: string): Observable<Response<Setting, 'setting'>>;
-    updateSetting(setting: Setting): Observable<Response<Setting, 'setting'>>;
-    getDefaults(): Observable<Response<Setting[], 'settings'>>;
+    getSettings(query?: Query): Observable<Response<Setting[], 'settings'>>;
+    getSetting(name: string, query?: Query): Observable<Response<Setting, 'setting'>>;
+    updateSetting(setting: Setting, query?: Query): Observable<Response<Setting, 'setting'>>;
+    getDefaults(query?: Query): Observable<Response<Setting[], 'settings'>>;
 }

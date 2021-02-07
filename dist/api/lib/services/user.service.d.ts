@@ -23,15 +23,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Response, User } from '../models';
+import { Query, Response, User } from '../models';
 export declare class UserService {
     private http;
     private serverService;
     private httpOptions;
     constructor(http: HttpClient, serverService: ServerService);
-    getLoggedUser(): Observable<Response<User, 'user'>>;
-    getUsers(): Observable<Response<User[], 'users'>>;
-    getUser(username: string): Observable<Response<User, 'user'>>;
+    getLoggedUser(query?: Query): Observable<Response<User, 'user'>>;
+    getUsers(query?: Query): Observable<Response<User[], 'users'>>;
+    getUser(username: string, query?: Query): Observable<Response<User, 'user'>>;
     deleteUser(username: string): Observable<Response<string, 'username'>>;
-    updateUser(user: User): Observable<Response<User, 'user'>>;
+    updateUser(user: User, query?: Query): Observable<Response<User, 'user'>>;
 }

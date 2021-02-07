@@ -23,10 +23,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ServerService } from './server.service';
 import { Observable } from 'rxjs';
-import { Response, Synthesizer } from '../models';
+import { Query, Response, Synthesizer } from '../models';
 export declare class SynthesizerService {
     private http;
     private serverService;
     constructor(http: HttpClient, serverService: ServerService);
-    getSynthesizers(): Observable<Response<Synthesizer[], 'synthesizers'>>;
+    getSynthesizers(query?: Query): Observable<Response<Synthesizer[], 'synthesizers'>>;
 }

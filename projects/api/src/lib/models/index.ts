@@ -46,3 +46,4 @@ export * from './setting';
 export * from './synthesizer';
 export * from './user';
 export * from './video';
+export * from './query';

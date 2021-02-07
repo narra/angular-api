@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Meta, Project, Response} from '../models';
+import {Item, Meta, Project, Query, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -44,8 +44,8 @@ export class ProjectService {
   }
 
   // POST validate '/v1/projects/validate'
-  public validate(id: string, name: string): Observable<Response<boolean, 'validation'>> {
-    return this.http.post<any>(this.serverService.query('projects/validate'), {id, name}, this.httpOptions)
+  public validate(id: string, name: string, query?: Query): Observable<Response<boolean, 'validation'>> {
+    return this.http.post<any>(this.serverService.query('projects/validate', query), {id, name}, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -53,8 +53,8 @@ export class ProjectService {
   }
 
   // GET projects '/v1/projects'
-  public getProjects(): Observable<Response<Project[], 'projects'>> {
-    return this.http.get<any>(this.serverService.query('projects'))
+  public getProjects(query?: Query): Observable<Response<Project[], 'projects'>> {
+    return this.http.get<any>(this.serverService.query('projects', query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -62,8 +62,17 @@ export class ProjectService {
   }
 
   // GET project '/v1/projects/{name}'
-  public getProject(id: string): Observable<Response<Project, 'project'>> {
-    return this.http.get<any>(this.serverService.query('projects/' + id))
+  public getProject(id: string, query?: Query): Observable<Response<Project, 'project'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id, query))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET project '/v1/projects/{name}/items'
+  public getProjectItems(id: string, query?: Query): Observable<Response<Item[], 'items'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id + '/items', query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -71,8 +80,8 @@ export class ProjectService {
   }
 
   // POST new project '/v1/projects/new'
-  public addProject(project: Project): Observable<Response<Project, 'project'>> {
-    return this.http.post<any>(this.serverService.query('projects/new'), project, this.httpOptions)
+  public addProject(project: Project, query?: Query): Observable<Response<Project, 'project'>> {
+    return this.http.post<any>(this.serverService.query('projects/new', query), project, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -80,8 +89,8 @@ export class ProjectService {
   }
 
   // POST update project '/v1/projects/{name}/update'
-  public updateProject(project: Project): Observable<Response<Project, 'project'>> {
-    return this.http.post<any>(this.serverService.query('projects/' + project.id + '/update'), project, this.httpOptions)
+  public updateProject(project: Project, query?: Query): Observable<Response<Project, 'project'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + project.id + '/update', query), project, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -98,8 +107,8 @@ export class ProjectService {
   }
 
   // POST new project metadata '/v1/projects/{name}/metadata/new'
-  public addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/new'), meta, this.httpOptions)
+  public addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, query?: Query): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/new', query), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -107,8 +116,8 @@ export class ProjectService {
   }
 
   // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
-  public updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update'), meta, this.httpOptions)
+  public updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, query?: Query): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

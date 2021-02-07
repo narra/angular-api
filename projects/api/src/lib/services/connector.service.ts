@@ -25,7 +25,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
-import {Connector, Response} from '../models';
+import {Connector, Query, Response} from '../models';
 import {ServerService} from './server.service';
 import {ErrorHelper} from '../helpers';
 
@@ -38,8 +38,8 @@ export class ConnectorService {
   }
 
   // GET connectors '/v1/connectors'
-  public getConnectors(): Observable<Response<Connector[], 'connectors'>> {
-    return this.http.get<any>(this.serverService.query('connectors'))
+  public getConnectors(query?: Query): Observable<Response<Connector[], 'connectors'>> {
+    return this.http.get<any>(this.serverService.query('connectors', query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

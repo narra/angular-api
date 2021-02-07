@@ -23,10 +23,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Event, Response } from '../models';
+import { Event, Query, Response } from '../models';
 export declare class EventService {
     private http;
     private serverService;
     constructor(http: HttpClient, serverService: ServerService);
-    getEvents(filter?: string): Observable<Response<Event[], 'events'>>;
+    getEvents(filter?: string, query?: Query): Observable<Response<Event[], 'events'>>;
 }

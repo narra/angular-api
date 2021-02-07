@@ -24,7 +24,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Module, Response} from '../models';
+import {Module, Query, Response} from '../models';
 import {catchError, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
 import {ErrorHelper} from '../helpers';
@@ -38,8 +38,8 @@ export class SystemService {
   }
 
   // GET users '/v1/system/version'
-  public getVersion(): Observable<Response<string, 'version'>> {
-    return this.http.get<any>(this.serverService.query('system/version'))
+  public getVersion(query?: Query): Observable<Response<string, 'version'>> {
+    return this.http.get<any>(this.serverService.query('system/version', query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -47,8 +47,8 @@ export class SystemService {
   }
 
   // GET users '/v1/system/modules'
-  public getModules(): Observable<Response<Module[], 'modules'>> {
-    return this.http.get<any>(this.serverService.query('system/modules'))
+  public getModules(query?: Query): Observable<Response<Module[], 'modules'>> {
+    return this.http.get<any>(this.serverService.query('system/modules', query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

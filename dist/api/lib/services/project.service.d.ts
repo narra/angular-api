@@ -23,19 +23,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Meta, Project, Response } from '../models';
+import { Item, Meta, Project, Query, Response } from '../models';
 export declare class ProjectService {
     private http;
     private serverService;
     private httpOptions;
     constructor(http: HttpClient, serverService: ServerService);
-    validate(id: string, name: string): Observable<Response<boolean, 'validation'>>;
-    getProjects(): Observable<Response<Project[], 'projects'>>;
-    getProject(id: string): Observable<Response<Project, 'project'>>;
-    addProject(project: Project): Observable<Response<Project, 'project'>>;
-    updateProject(project: Project): Observable<Response<Project, 'project'>>;
+    validate(id: string, name: string, query?: Query): Observable<Response<boolean, 'validation'>>;
+    getProjects(query?: Query): Observable<Response<Project[], 'projects'>>;
+    getProject(id: string, query?: Query): Observable<Response<Project, 'project'>>;
+    getProjectItems(id: string, query?: Query): Observable<Response<Item[], 'items'>>;
+    addProject(project: Project, query?: Query): Observable<Response<Project, 'project'>>;
+    updateProject(project: Project, query?: Query): Observable<Response<Project, 'project'>>;
     deleteProject(id: string): Observable<Response<string, 'name'>>;
-    addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
-    updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>): Observable<Response<Meta, 'metadata'>>;
+    addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, query?: Query): Observable<Response<Meta, 'metadata'>>;
+    updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, query?: Query): Observable<Response<Meta, 'metadata'>>;
     deleteProjectMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>>;
 }

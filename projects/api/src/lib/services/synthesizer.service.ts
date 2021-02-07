@@ -24,9 +24,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ServerService} from './server.service';
-import {catchError, map, retry} from 'rxjs/operators';
+import {catchError, retry} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {Response, Synthesizer} from '../models';
+import {Query, Response, Synthesizer} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -38,8 +38,8 @@ export class SynthesizerService {
   }
 
   // GET synthesizers '/v1/synthesizers'
-  public getSynthesizers(): Observable<Response<Synthesizer[], 'synthesizers'>> {
-    return this.http.get<any>(this.serverService.query('synthesizers'))
+  public getSynthesizers(query?: Query): Observable<Response<Synthesizer[], 'synthesizers'>> {
+    return this.http.get<any>(this.serverService.query('synthesizers', query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
