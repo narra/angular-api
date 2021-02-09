@@ -23,7 +23,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Item, Library, Meta, Query, Response } from '../models';
+import { Item, Library, Meta, Pagination, Query, Response } from '../models';
 export declare class LibraryService {
     private http;
     private serverService;
@@ -32,7 +32,7 @@ export declare class LibraryService {
     validate(name: string, query?: Query): Observable<Response<boolean, 'validation'>>;
     getLibraries(query?: Query): Observable<Response<Library[], 'libraries'>>;
     getLibrary(id: string, query?: Query): Observable<Response<Library, 'library'>>;
-    getItems(id: string, query?: Query): Observable<Response<Item[], 'items'>>;
+    getItems(id: string, query?: Query, pagination?: Pagination): Observable<Response<Item[], 'items'>>;
     addLibrary(library: Library, query?: Query): Observable<Response<Library, 'library'>>;
     updateLibrary(library: Library, query?: Query): Observable<Response<Library, 'library'>>;
     deleteLibrary(id: string): Observable<Response<string, 'id'>>;

@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Item, Meta, Project, Query, Response} from '../models';
+import {Item, Library, Meta, Pagination, Project, Query, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -70,9 +70,27 @@ export class ProjectService {
       );
   }
 
-  // GET project '/v1/projects/{name}/items'
-  public getProjectItems(id: string, query?: Query): Observable<Response<Item[], 'items'>> {
-    return this.http.get<any>(this.serverService.query('projects/' + id + '/items', query))
+  // GET project's items '/v1/projects/{id}/items'
+  public getProjectItems(id: string, query?: Query, pagination?: Pagination): Observable<Response<Item[], 'items'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id + '/items', query, pagination))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET project's libraries '/v1/projects/{id}/libraries'
+  public getProjectLibraries(id: string, query?: Query): Observable<Response<Library[], 'libraries'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id + '/libraries', query))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET project's library '/v1/projects/{id}/libraries/{library}'
+  public getProjectLibrary(id: string, library: string, query?: Query): Observable<Response<Library, 'library'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id + '/libraries/' + library, query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

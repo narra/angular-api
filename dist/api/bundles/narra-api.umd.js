@@ -334,7 +334,7 @@
         //
         // public methods
         //
-        ServerService.prototype.query = function (path, query) {
+        ServerService.prototype.query = function (path, query, pagination) {
             // prepare params
             var params = path;
             // check for query
@@ -344,21 +344,30 @@
                 // prepare libraries selector
                 if (query.libraries) {
                     query.libraries.forEach(function (library) {
-                        params += 'libraries[]=' + library + '&';
+                        params += "libraries[]=" + library + "&";
                     });
                 }
                 // prepare generators selector
                 if (query.generators) {
                     query.generators.forEach(function (generator) {
-                        params += 'generators[]=' + generator + '&';
+                        params += "generators[]=" + generator + "&";
                     });
                 }
                 // prepare generators selector
                 if (query.filters) {
                     query.filters.forEach(function (filter) {
-                        params += 'filters[]=' + filter + '&';
+                        params += "filters[]=" + filter + "&";
                     });
                 }
+            }
+            // check for pagination
+            if (pagination) {
+                // prepare query param string if not query
+                if (!query) {
+                    params += '?';
+                }
+                // add pagination parameters
+                params += "page=" + pagination.page + "&per_page=" + pagination.perPage + "&offset=" + pagination.offset;
             }
             return this.server + '/v' + this.version + '/' + params;
         };
@@ -631,8 +640,8 @@
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // GET library items '/v1/libraries/{id}/items'
-        LibraryService.prototype.getItems = function (id, query) {
-            return this.http.get(this.serverService.query('libraries/' + id + '/items', query))
+        LibraryService.prototype.getItems = function (id, query, pagination) {
+            return this.http.get(this.serverService.query('libraries/' + id + '/items', query, pagination))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new library '/v1/libraries/new'
@@ -725,9 +734,19 @@
             return this.http.get(this.serverService.query('projects/' + id, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // GET project '/v1/projects/{name}/items'
-        ProjectService.prototype.getProjectItems = function (id, query) {
-            return this.http.get(this.serverService.query('projects/' + id + '/items', query))
+        // GET project's items '/v1/projects/{id}/items'
+        ProjectService.prototype.getProjectItems = function (id, query, pagination) {
+            return this.http.get(this.serverService.query('projects/' + id + '/items', query, pagination))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET project's libraries '/v1/projects/{id}/libraries'
+        ProjectService.prototype.getProjectLibraries = function (id, query) {
+            return this.http.get(this.serverService.query('projects/' + id + '/libraries', query))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET project's library '/v1/projects/{id}/libraries/{library}'
+        ProjectService.prototype.getProjectLibrary = function (id, library, query) {
+            return this.http.get(this.serverService.query('projects/' + id + '/libraries/' + library, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new project '/v1/projects/new'

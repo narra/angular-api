@@ -22,7 +22,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Query} from '../models';
+import {Pagination, Query} from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +73,7 @@ export class ServerService {
   //
   // public methods
   //
-  public query(path: string, query?: Query): string {
+  public query(path: string, query?: Query, pagination?: Pagination): string {
     // prepare params
     let params = path;
     // check for query
@@ -83,21 +83,30 @@ export class ServerService {
       // prepare libraries selector
       if (query.libraries) {
         query.libraries.forEach((library: string) => {
-          params += 'libraries[]=' + library + '&';
+          params += `libraries[]=${library}&`;
         });
       }
       // prepare generators selector
       if (query.generators) {
         query.generators.forEach((generator: string) => {
-          params += 'generators[]=' + generator + '&';
+          params += `generators[]=${generator}&`;
         });
       }
       // prepare generators selector
       if (query.filters) {
         query.filters.forEach((filter: string) => {
-          params += 'filters[]=' + filter + '&';
+          params += `filters[]=${filter}&`;
         });
       }
+    }
+    // check for pagination
+    if (pagination) {
+      // prepare query param string if not query
+      if (!query) {
+        params += '?';
+      }
+      // add pagination parameters
+      params += `page=${pagination.page}&per_page=${pagination.perPage}&offset=${pagination.offset}`;
     }
     return this.server + '/v' + this.version + '/' + params;
   }

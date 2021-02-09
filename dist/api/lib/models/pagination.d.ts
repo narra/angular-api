@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright (C) 2020 narra.eu
+ * Copyright (C) 2021 narra.eu
  *
  * This file is part of Narra Angular API.
  *
@@ -20,11 +20,12 @@
  *
  * Authors: Michal Mocnak <michal@narra.eu>
  */
-import { Error } from './error';
-import { Pagination } from './pagination';
-export declare type Response<T, Key extends string> = {
-    errors: Error[];
-    pagination?: Pagination;
-} & {
-    [P in Key]: T;
-};
+export interface Pagination {
+    total: number;
+    totalPages: number;
+    page: number;
+    perPage: number;
+    nextPage: number;
+    prevPage: number;
+    offset: number;
+}

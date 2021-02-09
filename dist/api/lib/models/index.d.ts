@@ -33,6 +33,7 @@ export * from './meta';
 export * from './metable';
 export * from './module';
 export * from './authorship';
+export * from './pagination';
 export * from './pendable';
 export * from './project';
 export * from './provider';

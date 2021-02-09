@@ -22,9 +22,12 @@
  */
 
 import {Error} from './error';
+import {Pagination} from './pagination';
 
 export type Response<T, Key extends string> = {
   // handle errors
   errors: Error[];
+  // handle pagination
+  pagination?: Pagination;
   // handle data based on Key
 } & {[P in Key]: T};

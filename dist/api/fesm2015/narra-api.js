@@ -535,6 +535,29 @@ class MetaHelper {
 /**
  * @license
  *
+ * Copyright (C) 2021 narra.eu
+ *
+ * This file is part of Narra Angular API.
+ *
+ * Narra Angular API is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Narra Angular API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michal Mocnak <michal@narra.eu>
+ */
+
+/**
+ * @license
+ *
  * Copyright (C) 2020 narra.eu
  *
  * This file is part of Narra Angular API.
@@ -913,7 +936,7 @@ class ServerService {
     //
     // public methods
     //
-    query(path, query) {
+    query(path, query, pagination) {
         // prepare params
         let params = path;
         // check for query
@@ -923,21 +946,30 @@ class ServerService {
             // prepare libraries selector
             if (query.libraries) {
                 query.libraries.forEach((library) => {
-                    params += 'libraries[]=' + library + '&';
+                    params += `libraries[]=${library}&`;
                 });
             }
             // prepare generators selector
             if (query.generators) {
                 query.generators.forEach((generator) => {
-                    params += 'generators[]=' + generator + '&';
+                    params += `generators[]=${generator}&`;
                 });
             }
             // prepare generators selector
             if (query.filters) {
                 query.filters.forEach((filter) => {
-                    params += 'filters[]=' + filter + '&';
+                    params += `filters[]=${filter}&`;
                 });
             }
+        }
+        // check for pagination
+        if (pagination) {
+            // prepare query param string if not query
+            if (!query) {
+                params += '?';
+            }
+            // add pagination parameters
+            params += `page=${pagination.page}&per_page=${pagination.perPage}&offset=${pagination.offset}`;
         }
         return this.server + '/v' + this.version + '/' + params;
     }
@@ -1204,8 +1236,8 @@ class LibraryService {
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET library items '/v1/libraries/{id}/items'
-    getItems(id, query) {
-        return this.http.get(this.serverService.query('libraries/' + id + '/items', query))
+    getItems(id, query, pagination) {
+        return this.http.get(this.serverService.query('libraries/' + id + '/items', query, pagination))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new library '/v1/libraries/new'
@@ -1297,9 +1329,19 @@ class ProjectService {
         return this.http.get(this.serverService.query('projects/' + id, query))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // GET project '/v1/projects/{name}/items'
-    getProjectItems(id, query) {
-        return this.http.get(this.serverService.query('projects/' + id + '/items', query))
+    // GET project's items '/v1/projects/{id}/items'
+    getProjectItems(id, query, pagination) {
+        return this.http.get(this.serverService.query('projects/' + id + '/items', query, pagination))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // GET project's libraries '/v1/projects/{id}/libraries'
+    getProjectLibraries(id, query) {
+        return this.http.get(this.serverService.query('projects/' + id + '/libraries', query))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // GET project's library '/v1/projects/{id}/libraries/{library}'
+    getProjectLibrary(id, library, query) {
+        return this.http.get(this.serverService.query('projects/' + id + '/libraries/' + library, query))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new project '/v1/projects/new'

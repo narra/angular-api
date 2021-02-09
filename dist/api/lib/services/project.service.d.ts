@@ -23,7 +23,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Item, Meta, Project, Query, Response } from '../models';
+import { Item, Library, Meta, Pagination, Project, Query, Response } from '../models';
 export declare class ProjectService {
     private http;
     private serverService;
@@ -32,7 +32,9 @@ export declare class ProjectService {
     validate(id: string, name: string, query?: Query): Observable<Response<boolean, 'validation'>>;
     getProjects(query?: Query): Observable<Response<Project[], 'projects'>>;
     getProject(id: string, query?: Query): Observable<Response<Project, 'project'>>;
-    getProjectItems(id: string, query?: Query): Observable<Response<Item[], 'items'>>;
+    getProjectItems(id: string, query?: Query, pagination?: Pagination): Observable<Response<Item[], 'items'>>;
+    getProjectLibraries(id: string, query?: Query): Observable<Response<Library[], 'libraries'>>;
+    getProjectLibrary(id: string, library: string, query?: Query): Observable<Response<Library, 'library'>>;
     addProject(project: Project, query?: Query): Observable<Response<Project, 'project'>>;
     updateProject(project: Project, query?: Query): Observable<Response<Project, 'project'>>;
     deleteProject(id: string): Observable<Response<string, 'name'>>;

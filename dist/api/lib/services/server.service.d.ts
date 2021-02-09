@@ -20,7 +20,7 @@
  *
  * Authors: Michal Mocnak <michal@narra.eu>
  */
-import { Query } from '../models';
+import { Pagination, Query } from '../models';
 export declare class ServerService {
     private server;
     private version;
@@ -30,5 +30,5 @@ export declare class ServerService {
     get apiServer(): string;
     get apiVersion(): number;
     get isInitialized(): boolean;
-    query(path: string, query?: Query): string;
+    query(path: string, query?: Query, pagination?: Pagination): string;
 }
