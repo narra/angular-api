@@ -366,7 +366,7 @@
             // prepare params
             var params = path + "?";
             // filters
-            if (filter.filters) {
+            if (filter) {
                 filter.filters.forEach(function (f) {
                     params += "filters[]=" + f + "&";
                 });

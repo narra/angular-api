@@ -77,7 +77,7 @@ export class ServerService {
     // prepare params
     let params = `${path}?`;
     // filters
-    if (filter.filters) {
+    if (filter) {
       filter.filters.forEach((f: string) => {
         params += `filters[]=${f}&`;
       });
