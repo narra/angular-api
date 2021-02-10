@@ -24,7 +24,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Query, Response, Setting} from '../models';
+import {Filter, Response, Setting} from '../models';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
 import {ErrorHelper} from '../helpers';
@@ -44,8 +44,8 @@ export class SettingService {
   }
 
   // GET settings '/v1/settings'
-  public getSettings(query?: Query): Observable<Response<Setting[], 'settings'>> {
-    return this.http.get<any>(this.serverService.query('settings', query))
+  public getSettings(filter?: Filter): Observable<Response<Setting[], 'settings'>> {
+    return this.http.get<any>(this.serverService.query('settings', filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -53,8 +53,8 @@ export class SettingService {
   }
 
   // GET setting '/v1/settings/{name}'
-  public getSetting(name: string, query?: Query): Observable<Response<Setting, 'setting'>> {
-    return this.http.get<any>(this.serverService.query('settings/' + name, query))
+  public getSetting(name: string, filter?: Filter): Observable<Response<Setting, 'setting'>> {
+    return this.http.get<any>(this.serverService.query('settings/' + name, filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -62,8 +62,8 @@ export class SettingService {
   }
 
   // POST update setting '/v1/settings/{name}/update'
-  public updateSetting(setting: Setting, query?: Query): Observable<Response<Setting, 'setting'>> {
-    return this.http.post<any>(this.serverService.query('settings/' + name + '/update', query), setting, this.httpOptions)
+  public updateSetting(setting: Setting, filter?: Filter): Observable<Response<Setting, 'setting'>> {
+    return this.http.post<any>(this.serverService.query('settings/' + name + '/update', filter), setting, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -71,8 +71,8 @@ export class SettingService {
   }
 
   // GET settings default values '/v1/settings/defaults'
-  public getDefaults(query?: Query): Observable<Response<Setting[], 'settings'>> {
-    return this.http.get<any>(this.serverService.query('settings/defaults', query))
+  public getDefaults(filter?: Filter): Observable<Response<Setting[], 'settings'>> {
+    return this.http.get<any>(this.serverService.query('settings/defaults', filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

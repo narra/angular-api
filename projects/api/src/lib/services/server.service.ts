@@ -22,7 +22,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Pagination, Query} from '../models';
+import {Pagination, Filter, Selector, Query} from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -73,41 +73,44 @@ export class ServerService {
   //
   // public methods
   //
-  public query(path: string, query?: Query, pagination?: Pagination): string {
+  public query(path: string, filter?: Filter, pagination?: Pagination, query?: Query, selectors?: Selector[]): string {
     // prepare params
-    let params = path;
-    // check for query
+    let params = `${path}?`;
+    // filters
+    if (filter.filters) {
+      filter.filters.forEach((f: string) => {
+        params += `filters[]=${f}&`;
+      });
+    }
+    // selectors
+    if (selectors) {
+      selectors.forEach((selector) => {
+        selector.content.forEach((value) => {
+          params += `${selector.name}[]=${value}&`;
+        });
+      });
+    }
+    // query
     if (query) {
-      // prepare query param string
-      params += '?';
-      // prepare libraries selector
-      if (query.libraries) {
-        query.libraries.forEach((library: string) => {
-          params += `libraries[]=${library}&`;
-        });
+      // add query fields
+      params += `query=${query.query}&`;
+      // add operator
+      if (query.queryOperator) {
+        params += `query_operator=${query.queryOperator}&`;
       }
-      // prepare generators selector
-      if (query.generators) {
-        query.generators.forEach((generator: string) => {
-          params += `generators[]=${generator}&`;
-        });
-      }
-      // prepare generators selector
-      if (query.filters) {
-        query.filters.forEach((filter: string) => {
-          params += `filters[]=${filter}&`;
+      // add fields
+      if (query.queryFields) {
+        query.queryFields.forEach((field) => {
+          params += `query_fields[]=${field}&`;
         });
       }
     }
-    // check for pagination
+    // pagination
     if (pagination) {
-      // prepare query param string if not query
-      if (!query) {
-        params += '?';
-      }
       // add pagination parameters
       params += `page=${pagination.page}&per_page=${pagination.perPage}&offset=${pagination.offset}`;
     }
+    // check for pagination
     return this.server + '/v' + this.version + '/' + params;
   }
 }

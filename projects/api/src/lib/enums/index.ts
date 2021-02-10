@@ -23,5 +23,6 @@
 
 export * from './event-status.enum';
 export * from './item-type.enum';
+export * from './query-operator.enum';
 export * from './role-type.enum';
 export * from './scenario-type.enum';

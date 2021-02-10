@@ -23,10 +23,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Generator, Query, Response } from '../models';
+import { Generator, Filter, Response } from '../models';
 export declare class GeneratorService {
     private http;
     private serverService;
     constructor(http: HttpClient, serverService: ServerService);
-    getGenerators(query?: Query): Observable<Response<Generator[], 'generators'>>;
+    getGenerators(filter?: Filter): Observable<Response<Generator[], 'generators'>>;
 }

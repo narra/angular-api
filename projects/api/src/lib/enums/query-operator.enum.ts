@@ -20,13 +20,8 @@
  *
  * Authors: Michal Mocnak <michal@narra.eu>
  */
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ServerService } from './server.service';
-import { Event, Filter, Response } from '../models';
-export declare class EventService {
-    private http;
-    private serverService;
-    constructor(http: HttpClient, serverService: ServerService);
-    getEvents(selection?: string, filter?: Filter): Observable<Response<Event[], 'events'>>;
+
+export enum QueryOperator {
+  or = 'or',
+  and = 'and'
 }

@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Item, Library, Meta, Pagination, Project, Query, Response} from '../models';
+import {Item, Library, Meta, Pagination, Project, Filter, Response, Query} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -44,8 +44,8 @@ export class LibraryService {
   }
 
   // POST validate '/v1/libraries/validate'
-  public validate(name: string, query?: Query): Observable<Response<boolean, 'validation'>> {
-    return this.http.post<any>(this.serverService.query('libraries/validate', query), {name}, this.httpOptions)
+  public validate(name: string, filter?: Filter): Observable<Response<boolean, 'validation'>> {
+    return this.http.post<any>(this.serverService.query('libraries/validate', filter), {name}, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -53,8 +53,8 @@ export class LibraryService {
   }
 
   // GET libraries '/v1/libraries'
-  public getLibraries(query?: Query): Observable<Response<Library[], 'libraries'>> {
-    return this.http.get<any>(this.serverService.query('libraries', query))
+  public getLibraries(filter?: Filter): Observable<Response<Library[], 'libraries'>> {
+    return this.http.get<any>(this.serverService.query('libraries', filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -62,8 +62,8 @@ export class LibraryService {
   }
 
   // GET library '/v1/libraries/{id}'
-  public getLibrary(id: string, query?: Query): Observable<Response<Library, 'library'>> {
-    return this.http.get<any>(this.serverService.query('libraries/' + id, query))
+  public getLibrary(id: string, filter?: Filter): Observable<Response<Library, 'library'>> {
+    return this.http.get<any>(this.serverService.query('libraries/' + id, filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -71,8 +71,8 @@ export class LibraryService {
   }
 
   // GET library items '/v1/libraries/{id}/items'
-  public getItems(id: string, query?: Query, pagination?: Pagination): Observable<Response<Item[], 'items'>> {
-    return this.http.get<any>(this.serverService.query('libraries/' + id + '/items', query, pagination))
+  public getItems(id: string, filter?: Filter, pagination?: Pagination, query?: Query): Observable<Response<Item[], 'items'>> {
+    return this.http.get<any>(this.serverService.query('libraries/' + id + '/items', filter, pagination, query))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -80,8 +80,8 @@ export class LibraryService {
   }
 
   // POST new library '/v1/libraries/new'
-  public addLibrary(library: Library, query?: Query): Observable<Response<Library, 'library'>> {
-    return this.http.post<any>(this.serverService.query('libraries/new', query), library, this.httpOptions)
+  public addLibrary(library: Library, filter?: Filter): Observable<Response<Library, 'library'>> {
+    return this.http.post<any>(this.serverService.query('libraries/new', filter), library, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -89,8 +89,8 @@ export class LibraryService {
   }
 
   // POST update library '/v1/libraries/{id}/update'
-  public updateLibrary(library: Library, query?: Query): Observable<Response<Library, 'library'>> {
-    return this.http.post<any>(this.serverService.query('libraries/' + library.id + '/update', query), library, this.httpOptions)
+  public updateLibrary(library: Library, filter?: Filter): Observable<Response<Library, 'library'>> {
+    return this.http.post<any>(this.serverService.query('libraries/' + library.id + '/update', filter), library, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -107,8 +107,8 @@ export class LibraryService {
   }
 
   // POST new library metadata '/v1/libraries/{name}/metadata/new'
-  public addLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, query?: Query): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('libraries/' + id + '/metadata/new', query), meta, this.httpOptions)
+  public addLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('libraries/' + id + '/metadata/new', filter), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -116,8 +116,8 @@ export class LibraryService {
   }
 
   // POST update library metadata '/v1/libraries/{name}/metadata/{meta}/update'
-  public updateLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, query?: Query): Observable<Response<Meta, 'metadata'>> {
-    return this.http.post<any>(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
+  public updateLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>> {
+    return this.http.post<any>(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update', filter), meta, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

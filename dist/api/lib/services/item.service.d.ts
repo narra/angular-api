@@ -23,16 +23,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Candidate, Item, Meta, Proxy, Query, Response } from '../models';
+import { Candidate, Item, Meta, Proxy, Filter, Response } from '../models';
 export declare class ItemService {
     private http;
     private serverService;
     private httpOptions;
     constructor(http: HttpClient, serverService: ServerService);
-    check(url: string, query?: Query): Observable<Response<Proxy[], 'proxies'>>;
-    addItems(candidates: Candidate[], query?: Query): Observable<Response<string[], 'ids'>>;
-    getItem(id: string, query?: Query): Observable<Response<Item, 'item'>>;
-    addItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, query?: Query): Observable<Response<Meta, 'metadata'>>;
-    updateItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, query?: Query): Observable<Response<Meta, 'metadata'>>;
+    check(url: string, filter?: Filter): Observable<Response<Proxy[], 'proxies'>>;
+    addItems(candidates: Candidate[], filter?: Filter): Observable<Response<string[], 'ids'>>;
+    getItem(id: string, filter?: Filter): Observable<Response<Item, 'item'>>;
+    addItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
+    updateItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     deleteItemMeta(id: string, meta: Pick<Meta, 'name' | 'generator'>): Observable<Response<string, 'name'>>;
 }

@@ -26,7 +26,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Generator, Query, Response} from '../models';
+import {Generator, Filter, Response} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -38,8 +38,8 @@ export class GeneratorService {
   }
 
   // GET generators '/v1/generators'
-  public getGenerators(query?: Query): Observable<Response<Generator[], 'generators'>> {
-    return this.http.get<any>(this.serverService.query('generators', query))
+  public getGenerators(filter?: Filter): Observable<Response<Generator[], 'generators'>> {
+    return this.http.get<any>(this.serverService.query('generators', filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

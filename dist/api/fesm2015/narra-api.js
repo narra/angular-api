@@ -84,6 +84,34 @@ var ItemType;
  *
  * Authors: Michal Mocnak <michal@narra.eu>
  */
+var QueryOperator;
+(function (QueryOperator) {
+    QueryOperator["or"] = "or";
+    QueryOperator["and"] = "and";
+})(QueryOperator || (QueryOperator = {}));
+
+/**
+ * @license
+ *
+ * Copyright (C) 2020 narra.eu
+ *
+ * This file is part of Narra Angular API.
+ *
+ * Narra Angular API is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Narra Angular API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michal Mocnak <michal@narra.eu>
+ */
 var RoleType;
 (function (RoleType) {
     RoleType["admin"] = "admin";
@@ -857,6 +885,52 @@ class MetaHelper {
 /**
  * @license
  *
+ * Copyright (C) 2021 narra.eu
+ *
+ * This file is part of Narra Angular API.
+ *
+ * Narra Angular API is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Narra Angular API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michal Mocnak <michal@narra.eu>
+ */
+
+/**
+ * @license
+ *
+ * Copyright (C) 2020 narra.eu
+ *
+ * This file is part of Narra Angular API.
+ *
+ * Narra Angular API is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Narra Angular API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michal Mocnak <michal@narra.eu>
+ */
+
+/**
+ * @license
+ *
  * Copyright (C) 2020 narra.eu
  *
  * This file is part of Narra Angular API.
@@ -936,41 +1010,44 @@ class ServerService {
     //
     // public methods
     //
-    query(path, query, pagination) {
+    query(path, filter, pagination, query, selectors) {
         // prepare params
-        let params = path;
-        // check for query
+        let params = `${path}?`;
+        // filters
+        if (filter.filters) {
+            filter.filters.forEach((f) => {
+                params += `filters[]=${f}&`;
+            });
+        }
+        // selectors
+        if (selectors) {
+            selectors.forEach((selector) => {
+                selector.content.forEach((value) => {
+                    params += `${selector.name}[]=${value}&`;
+                });
+            });
+        }
+        // query
         if (query) {
-            // prepare query param string
-            params += '?';
-            // prepare libraries selector
-            if (query.libraries) {
-                query.libraries.forEach((library) => {
-                    params += `libraries[]=${library}&`;
-                });
+            // add query fields
+            params += `query=${query.query}&`;
+            // add operator
+            if (query.queryOperator) {
+                params += `query_operator=${query.queryOperator}&`;
             }
-            // prepare generators selector
-            if (query.generators) {
-                query.generators.forEach((generator) => {
-                    params += `generators[]=${generator}&`;
-                });
-            }
-            // prepare generators selector
-            if (query.filters) {
-                query.filters.forEach((filter) => {
-                    params += `filters[]=${filter}&`;
+            // add fields
+            if (query.queryFields) {
+                query.queryFields.forEach((field) => {
+                    params += `query_fields[]=${field}&`;
                 });
             }
         }
-        // check for pagination
+        // pagination
         if (pagination) {
-            // prepare query param string if not query
-            if (!query) {
-                params += '?';
-            }
             // add pagination parameters
             params += `page=${pagination.page}&per_page=${pagination.perPage}&offset=${pagination.offset}`;
         }
+        // check for pagination
         return this.server + '/v' + this.version + '/' + params;
     }
 }
@@ -1010,8 +1087,8 @@ class ConnectorService {
         this.serverService = serverService;
     }
     // GET connectors '/v1/connectors'
-    getConnectors(query) {
-        return this.http.get(this.serverService.query('connectors', query))
+    getConnectors(filter) {
+        return this.http.get(this.serverService.query('connectors', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1054,8 +1131,8 @@ class EventService {
         this.serverService = serverService;
     }
     // GET events by default '/v1/events/me' possibly can be modified to admin's all '/v1/events'
-    getEvents(filter = 'me', query) {
-        return this.http.get(this.serverService.query('events/' + filter, query))
+    getEvents(selection = 'me', filter) {
+        return this.http.get(this.serverService.query('events/' + selection, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1098,8 +1175,8 @@ class GeneratorService {
         this.serverService = serverService;
     }
     // GET generators '/v1/generators'
-    getGenerators(query) {
-        return this.http.get(this.serverService.query('generators', query))
+    getGenerators(filter) {
+        return this.http.get(this.serverService.query('generators', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1147,28 +1224,28 @@ class ItemService {
         };
     }
     // POST check url '/v1/items/check'
-    check(url, query) {
-        return this.http.post(this.serverService.query('items/check', query), { url }, this.httpOptions)
+    check(url, filter) {
+        return this.http.post(this.serverService.query('items/check', filter), { url }, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new item '/v1/items/new'
-    addItems(candidates, query) {
-        return this.http.post(this.serverService.query('items/new', query), { candidates }, this.httpOptions)
+    addItems(candidates, filter) {
+        return this.http.post(this.serverService.query('items/new', filter), { candidates }, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET item '/v1/items/{id}'
-    getItem(id, query) {
-        return this.http.get(this.serverService.query('items/' + id, query))
+    getItem(id, filter) {
+        return this.http.get(this.serverService.query('items/' + id, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new item metadata '/v1/items/{name}/metadata/new'
-    addItemMeta(id, meta, query) {
-        return this.http.post(this.serverService.query('items/' + id + '/metadata/new', query), meta, this.httpOptions)
+    addItemMeta(id, meta, filter) {
+        return this.http.post(this.serverService.query('items/' + id + '/metadata/new', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update item metadata '/v1/items/{name}/metadata/{meta}/update'
-    updateItemMeta(id, meta, query) {
-        return this.http.post(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
+    updateItemMeta(id, meta, filter) {
+        return this.http.post(this.serverService.query('items/' + id + '/metadata/' + meta.name + '/update', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete item metadata '/v1/items/{name}/metadata/{meta}/delete'
@@ -1221,33 +1298,33 @@ class LibraryService {
         };
     }
     // POST validate '/v1/libraries/validate'
-    validate(name, query) {
-        return this.http.post(this.serverService.query('libraries/validate', query), { name }, this.httpOptions)
+    validate(name, filter) {
+        return this.http.post(this.serverService.query('libraries/validate', filter), { name }, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET libraries '/v1/libraries'
-    getLibraries(query) {
-        return this.http.get(this.serverService.query('libraries', query))
+    getLibraries(filter) {
+        return this.http.get(this.serverService.query('libraries', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET library '/v1/libraries/{id}'
-    getLibrary(id, query) {
-        return this.http.get(this.serverService.query('libraries/' + id, query))
+    getLibrary(id, filter) {
+        return this.http.get(this.serverService.query('libraries/' + id, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET library items '/v1/libraries/{id}/items'
-    getItems(id, query, pagination) {
-        return this.http.get(this.serverService.query('libraries/' + id + '/items', query, pagination))
+    getItems(id, filter, pagination, query) {
+        return this.http.get(this.serverService.query('libraries/' + id + '/items', filter, pagination, query))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new library '/v1/libraries/new'
-    addLibrary(library, query) {
-        return this.http.post(this.serverService.query('libraries/new', query), library, this.httpOptions)
+    addLibrary(library, filter) {
+        return this.http.post(this.serverService.query('libraries/new', filter), library, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update library '/v1/libraries/{id}/update'
-    updateLibrary(library, query) {
-        return this.http.post(this.serverService.query('libraries/' + library.id + '/update', query), library, this.httpOptions)
+    updateLibrary(library, filter) {
+        return this.http.post(this.serverService.query('libraries/' + library.id + '/update', filter), library, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete library '/v1/libraries/{id}/delete'
@@ -1256,13 +1333,13 @@ class LibraryService {
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new library metadata '/v1/libraries/{name}/metadata/new'
-    addLibraryMeta(id, meta, query) {
-        return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new', query), meta, this.httpOptions)
+    addLibraryMeta(id, meta, filter) {
+        return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update library metadata '/v1/libraries/{name}/metadata/{meta}/update'
-    updateLibraryMeta(id, meta, query) {
-        return this.http.post(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
+    updateLibraryMeta(id, meta, filter) {
+        return this.http.post(this.serverService.query('libraries/' + id + '/metadata/' + meta.name + '/update', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete library metadata '/v1/libraries/{name}/metadata/{meta}/delete'
@@ -1315,43 +1392,55 @@ class ProjectService {
         };
     }
     // POST validate '/v1/projects/validate'
-    validate(id, name, query) {
-        return this.http.post(this.serverService.query('projects/validate', query), { id, name }, this.httpOptions)
+    validate(id, name, filter) {
+        return this.http.post(this.serverService.query('projects/validate', filter), { id, name }, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET projects '/v1/projects'
-    getProjects(query) {
-        return this.http.get(this.serverService.query('projects', query))
+    getProjects(filter) {
+        return this.http.get(this.serverService.query('projects', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET project '/v1/projects/{name}'
-    getProject(id, query) {
-        return this.http.get(this.serverService.query('projects/' + id, query))
+    getProject(id, filter) {
+        return this.http.get(this.serverService.query('projects/' + id, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET project's items '/v1/projects/{id}/items'
-    getProjectItems(id, query, pagination) {
-        return this.http.get(this.serverService.query('projects/' + id + '/items', query, pagination))
+    // default libraries selector: all
+    // default meta selector: none
+    getProjectItems(id, libraries, meta, query, filter, pagination) {
+        // prepare selectors
+        const selectors = [];
+        // libraries selector
+        if (libraries) {
+            selectors.push({ name: 'libraries', content: libraries });
+        }
+        // meta selector
+        if (meta) {
+            selectors.push({ name: 'meta', content: meta });
+        }
+        return this.http.get(this.serverService.query('projects/' + id + '/items', filter, pagination, query, selectors))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET project's libraries '/v1/projects/{id}/libraries'
-    getProjectLibraries(id, query) {
-        return this.http.get(this.serverService.query('projects/' + id + '/libraries', query))
+    getProjectLibraries(id, filter) {
+        return this.http.get(this.serverService.query('projects/' + id + '/libraries', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET project's library '/v1/projects/{id}/libraries/{library}'
-    getProjectLibrary(id, library, query) {
-        return this.http.get(this.serverService.query('projects/' + id + '/libraries/' + library, query))
+    getProjectLibrary(id, library, filter) {
+        return this.http.get(this.serverService.query('projects/' + id + '/libraries/' + library, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new project '/v1/projects/new'
-    addProject(project, query) {
-        return this.http.post(this.serverService.query('projects/new', query), project, this.httpOptions)
+    addProject(project, filter) {
+        return this.http.post(this.serverService.query('projects/new', filter), project, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update project '/v1/projects/{name}/update'
-    updateProject(project, query) {
-        return this.http.post(this.serverService.query('projects/' + project.id + '/update', query), project, this.httpOptions)
+    updateProject(project, filter) {
+        return this.http.post(this.serverService.query('projects/' + project.id + '/update', filter), project, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete project '/v1/projects/{name}/delete'
@@ -1360,13 +1449,13 @@ class ProjectService {
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new project metadata '/v1/projects/{name}/metadata/new'
-    addProjectMeta(id, meta, query) {
-        return this.http.post(this.serverService.query('projects/' + id + '/metadata/new', query), meta, this.httpOptions)
+    addProjectMeta(id, meta, filter) {
+        return this.http.post(this.serverService.query('projects/' + id + '/metadata/new', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
-    updateProjectMeta(id, meta, query) {
-        return this.http.post(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update', query), meta, this.httpOptions)
+    updateProjectMeta(id, meta, filter) {
+        return this.http.post(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
@@ -1512,23 +1601,23 @@ class SettingService {
         };
     }
     // GET settings '/v1/settings'
-    getSettings(query) {
-        return this.http.get(this.serverService.query('settings', query))
+    getSettings(filter) {
+        return this.http.get(this.serverService.query('settings', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET setting '/v1/settings/{name}'
-    getSetting(name, query) {
-        return this.http.get(this.serverService.query('settings/' + name, query))
+    getSetting(name, filter) {
+        return this.http.get(this.serverService.query('settings/' + name, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update setting '/v1/settings/{name}/update'
-    updateSetting(setting, query) {
-        return this.http.post(this.serverService.query('settings/' + name + '/update', query), setting, this.httpOptions)
+    updateSetting(setting, filter) {
+        return this.http.post(this.serverService.query('settings/' + name + '/update', filter), setting, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET settings default values '/v1/settings/defaults'
-    getDefaults(query) {
-        return this.http.get(this.serverService.query('settings/defaults', query))
+    getDefaults(filter) {
+        return this.http.get(this.serverService.query('settings/defaults', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1571,8 +1660,8 @@ class SynthesizerService {
         this.serverService = serverService;
     }
     // GET synthesizers '/v1/synthesizers'
-    getSynthesizers(query) {
-        return this.http.get(this.serverService.query('synthesizers', query))
+    getSynthesizers(filter) {
+        return this.http.get(this.serverService.query('synthesizers', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1615,13 +1704,13 @@ class SystemService {
         this.serverService = serverService;
     }
     // GET users '/v1/system/version'
-    getVersion(query) {
-        return this.http.get(this.serverService.query('system/version', query))
+    getVersion(filter) {
+        return this.http.get(this.serverService.query('system/version', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET users '/v1/system/modules'
-    getModules(query) {
-        return this.http.get(this.serverService.query('system/modules', query))
+    getModules(filter) {
+        return this.http.get(this.serverService.query('system/modules', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1720,18 +1809,18 @@ class UserService {
         };
     }
     // GET logged user '/v1/users/me'
-    getLoggedUser(query) {
-        return this.http.get(this.serverService.query('users/me', query))
+    getLoggedUser(filter) {
+        return this.http.get(this.serverService.query('users/me', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET users '/v1/users'
-    getUsers(query) {
-        return this.http.get(this.serverService.query('users', query))
+    getUsers(filter) {
+        return this.http.get(this.serverService.query('users', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET user '/v1/users/{username}'
-    getUser(username, query) {
-        return this.http.get(this.serverService.query('users/' + username, query))
+    getUser(username, filter) {
+        return this.http.get(this.serverService.query('users/' + username, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // GET delete user '/v1/users/{username}/delete'
@@ -1740,8 +1829,8 @@ class UserService {
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST update user '/v1/users/{username}/update'
-    updateUser(user, query) {
-        return this.http.post(this.serverService.query('users/' + user.username + '/update', query), user, this.httpOptions)
+    updateUser(user, filter) {
+        return this.http.post(this.serverService.query('users/' + user.username + '/update', filter), user, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }
@@ -1806,6 +1895,7 @@ var index = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get EventStatus () { return EventStatus; },
     get ItemType () { return ItemType; },
+    get QueryOperator () { return QueryOperator; },
     get RoleType () { return RoleType; },
     get ScenarioType () { return ScenarioType; },
     ErrorHelper: ErrorHelper,

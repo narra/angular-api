@@ -22,11 +22,11 @@
  */
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Connector, Query, Response } from '../models';
+import { Connector, Filter, Response } from '../models';
 import { ServerService } from './server.service';
 export declare class ConnectorService {
     private http;
     private serverService;
     constructor(http: HttpClient, serverService: ServerService);
-    getConnectors(query?: Query): Observable<Response<Connector[], 'connectors'>>;
+    getConnectors(filter?: Filter): Observable<Response<Connector[], 'connectors'>>;
 }

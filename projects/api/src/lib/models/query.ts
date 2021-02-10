@@ -21,8 +21,13 @@
  * Authors: Michal Mocnak <michal@narra.eu>
  */
 
+import {QueryOperator} from '../enums';
+
 export interface Query {
-  libraries: string[];
-  generators: string[];
-  filters: string[];
+  // query regex string
+  query: string;
+  // which fields we're searching for, default: [name, meta.value]
+  queryFields?: string[];
+  // logical operator between fields, default: or
+  queryOperator?: QueryOperator;
 }

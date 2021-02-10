@@ -20,8 +20,9 @@
  *
  * Authors: Michal Mocnak <michal@narra.eu>
  */
+import { QueryOperator } from '../enums';
 export interface Query {
-    libraries: string[];
-    generators: string[];
-    filters: string[];
+    query: string;
+    queryFields?: string[];
+    queryOperator?: QueryOperator;
 }

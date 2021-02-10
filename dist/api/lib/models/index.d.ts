@@ -47,3 +47,5 @@ export * from './synthesizer';
 export * from './user';
 export * from './video';
 export * from './query';
+export * from './filter';
+export * from './selector';

@@ -22,12 +22,12 @@
  */
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Module, Query, Response } from '../models';
+import { Module, Filter, Response } from '../models';
 import { ServerService } from './server.service';
 export declare class SystemService {
     private http;
     private serverService;
     constructor(http: HttpClient, serverService: ServerService);
-    getVersion(query?: Query): Observable<Response<string, 'version'>>;
-    getModules(query?: Query): Observable<Response<Module[], 'modules'>>;
+    getVersion(filter?: Filter): Observable<Response<string, 'version'>>;
+    getModules(filter?: Filter): Observable<Response<Module[], 'modules'>>;
 }

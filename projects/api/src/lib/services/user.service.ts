@@ -26,7 +26,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Query, Response, User} from '../models';
+import {Filter, Response, User} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -44,8 +44,8 @@ export class UserService {
   }
 
   // GET logged user '/v1/users/me'
-  public getLoggedUser(query?: Query): Observable<Response<User, 'user'>> {
-    return this.http.get<any>(this.serverService.query('users/me', query))
+  public getLoggedUser(filter?: Filter): Observable<Response<User, 'user'>> {
+    return this.http.get<any>(this.serverService.query('users/me', filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -53,8 +53,8 @@ export class UserService {
   }
 
   // GET users '/v1/users'
-  public getUsers(query?: Query): Observable<Response<User[], 'users'>> {
-    return this.http.get<any>(this.serverService.query('users', query))
+  public getUsers(filter?: Filter): Observable<Response<User[], 'users'>> {
+    return this.http.get<any>(this.serverService.query('users', filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -62,8 +62,8 @@ export class UserService {
   }
 
   // GET user '/v1/users/{username}'
-  public getUser(username: string, query?: Query): Observable<Response<User, 'user'>> {
-    return this.http.get<any>(this.serverService.query('users/' + username, query))
+  public getUser(username: string, filter?: Filter): Observable<Response<User, 'user'>> {
+    return this.http.get<any>(this.serverService.query('users/' + username, filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
@@ -80,8 +80,8 @@ export class UserService {
   }
 
   // POST update user '/v1/users/{username}/update'
-  public updateUser(user: User, query?: Query): Observable<Response<User, 'user'>> {
-    return this.http.post<any>(this.serverService.query('users/' + user.username + '/update', query), user, this.httpOptions)
+  public updateUser(user: User, filter?: Filter): Observable<Response<User, 'user'>> {
+    return this.http.post<any>(this.serverService.query('users/' + user.username + '/update', filter), user, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
