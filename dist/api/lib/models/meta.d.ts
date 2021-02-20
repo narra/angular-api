@@ -25,5 +25,7 @@ export interface Meta {
     value: string;
     generator: string;
     public: boolean;
+    in?: number;
+    out?: number;
     updated_at: Date;
 }
