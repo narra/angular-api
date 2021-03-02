@@ -675,6 +675,11 @@
             return this.http.get(this.serverService.query('libraries/' + id + '/items', filter, pagination, query))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
+        // POST delete library items '/v1/libraries/{id}/items/delete'
+        LibraryService.prototype.deleteItems = function (id, items) {
+            return this.http.post(this.serverService.query('libraries/' + id + '/items/delete'), items, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
         // POST new library '/v1/libraries/new'
         LibraryService.prototype.addLibrary = function (library, filter) {
             return this.http.post(this.serverService.query('libraries/new', filter), library, this.httpOptions)
