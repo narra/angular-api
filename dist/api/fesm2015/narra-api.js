@@ -1319,7 +1319,7 @@ class LibraryService {
     }
     // POST delete library items '/v1/libraries/{id}/items/delete'
     deleteItems(id, items) {
-        return this.http.post(this.serverService.query('libraries/' + id + '/items/delete'), items, this.httpOptions)
+        return this.http.post(this.serverService.query('libraries/' + id + '/items/delete'), { items }, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new library '/v1/libraries/new'

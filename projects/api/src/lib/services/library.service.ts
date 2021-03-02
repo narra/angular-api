@@ -81,7 +81,7 @@ export class LibraryService {
 
   // POST delete library items '/v1/libraries/{id}/items/delete'
   public deleteItems(id: string, items: string[]): Observable<Response<string[], 'ids'>> {
-    return this.http.post<any>(this.serverService.query('libraries/' + id + '/items/delete'), items, this.httpOptions)
+    return this.http.post<any>(this.serverService.query('libraries/' + id + '/items/delete'), {items}, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
