@@ -685,6 +685,11 @@
             return this.http.post(this.serverService.query('libraries/' + library.id + '/update', filter), library, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
+        // GET clean library '/v1/libraries/{id}/clean'
+        LibraryService.prototype.cleanLibrary = function (id) {
+            return this.http.get(this.serverService.query('libraries/' + id + '/clean'))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
         // GET delete library '/v1/libraries/{id}/delete'
         LibraryService.prototype.deleteLibrary = function (id) {
             return this.http.get(this.serverService.query('libraries/' + id + '/delete'))

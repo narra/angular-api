@@ -35,6 +35,7 @@ export declare class LibraryService {
     getItems(id: string, filter?: Filter, pagination?: Pagination, query?: Query): Observable<Response<Item[], 'items'>>;
     addLibrary(library: Library, filter?: Filter): Observable<Response<Library, 'library'>>;
     updateLibrary(library: Library, filter?: Filter): Observable<Response<Library, 'library'>>;
+    cleanLibrary(id: string): Observable<Response<string, 'id'>>;
     deleteLibrary(id: string): Observable<Response<string, 'id'>>;
     addLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     updateLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;

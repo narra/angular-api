@@ -53,7 +53,7 @@ export class ItemService {
   }
 
   // POST new item '/v1/items/new'
-  public addItems(candidates: Candidate[], filter?: Filter): Observable<Response<string[], 'ids'>> {
+  public addItems(candidates: Candidate[], filter?: Filter): Observable<Response<string[], 'events'>> {
     return this.http.post<any>(this.serverService.query('items/new', filter), { candidates }, this.httpOptions)
       .pipe(
         retry(1),

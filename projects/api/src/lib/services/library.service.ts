@@ -97,6 +97,15 @@ export class LibraryService {
       );
   }
 
+  // GET clean library '/v1/libraries/{id}/clean'
+  public cleanLibrary(id: string): Observable<Response<string, 'id'>> {
+    return this.http.get<any>(this.serverService.query('libraries/' + id + '/clean'))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
   // GET delete library '/v1/libraries/{id}/delete'
   public deleteLibrary(id: string): Observable<Response<string, 'id'>> {
     return this.http.get<any>(this.serverService.query('libraries/' + id + '/delete'))

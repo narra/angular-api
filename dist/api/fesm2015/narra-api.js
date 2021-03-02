@@ -1327,6 +1327,11 @@ class LibraryService {
         return this.http.post(this.serverService.query('libraries/' + library.id + '/update', filter), library, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
+    // GET clean library '/v1/libraries/{id}/clean'
+    cleanLibrary(id) {
+        return this.http.get(this.serverService.query('libraries/' + id + '/clean'))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
     // GET delete library '/v1/libraries/{id}/delete'
     deleteLibrary(id) {
         return this.http.get(this.serverService.query('libraries/' + id + '/delete'))

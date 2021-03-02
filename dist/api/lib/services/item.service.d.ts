@@ -30,7 +30,7 @@ export declare class ItemService {
     private httpOptions;
     constructor(http: HttpClient, serverService: ServerService);
     check(url: string, filter?: Filter): Observable<Response<Proxy[], 'proxies'>>;
-    addItems(candidates: Candidate[], filter?: Filter): Observable<Response<string[], 'ids'>>;
+    addItems(candidates: Candidate[], filter?: Filter): Observable<Response<string[], 'events'>>;
     getItem(id: string, filter?: Filter): Observable<Response<Item, 'item'>>;
     addItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     updateItemMeta(id: string, meta: Pick<Meta, 'name' | 'value' | 'generator'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
