@@ -31,4 +31,5 @@ export interface Library extends Authorship, Purgable, Metable {
     shared: boolean;
     scenario: Scenario;
     thumbnails: string[];
+    updated_at: Date;
 }

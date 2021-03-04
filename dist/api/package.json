@@ -1,6 +1,6 @@
 {
   "name": "@narra/api",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "NARRA Angular API",
   "author": {
     "name": "Michal Mocnak",
@@ -15,8 +15,8 @@
     "tslib": "^2.0.3"
   },
   "peerDependencies": {
-    "@angular/common": "~11.1.2",
-    "@angular/core": "~11.1.2"
+    "@angular/common": "~11.2.3",
+    "@angular/core": "~11.2.3"
   },
   "main": "bundles/narra-api.umd.js",
   "module": "fesm2015/narra-api.js",
