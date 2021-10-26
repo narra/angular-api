@@ -1,25 +1,9 @@
 /**
- * @license
- *
- * Copyright (C) 2020 narra.eu
- *
- * This file is part of Narra Angular API.
- *
- * Narra Angular API is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Narra Angular API is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Michal Mocnak <michal@narra.eu>
+ * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+ * Copyright: (c) 2021, Narra Project
+ * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+export * from './action';
 export * from './author';
 export * from './candidate';
 export * from './connector';
@@ -29,6 +13,7 @@ export * from './generator';
 export * from './item';
 export * from './ingest';
 export * from './library';
+export * from './log';
 export * from './meta';
 export * from './metable';
 export * from './module';
@@ -40,6 +25,7 @@ export * from './provider';
 export * from './proxy';
 export * from './purgable';
 export * from './response';
+export * from './return';
 export * from './scenario';
 export * from './selectable';
 export * from './setting';

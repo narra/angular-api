@@ -1,24 +1,7 @@
 /**
- * @license
- *
- * Copyright (C) 2020 narra.eu
- *
- * This file is part of Narra Angular API.
- *
- * Narra Angular API is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Narra Angular API is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Michal Mocnak <michal@narra.eu>
+ * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+ * Copyright: (c) 2021, Narra Project
+ * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -37,7 +20,7 @@ export declare class ProjectService {
     getProjectLibrary(id: string, library: string, filter?: Filter): Observable<Response<Library, 'library'>>;
     addProject(project: Project, filter?: Filter): Observable<Response<Project, 'project'>>;
     updateProject(project: Project, filter?: Filter): Observable<Response<Project, 'project'>>;
-    deleteProject(id: string): Observable<Response<string, 'name'>>;
+    deleteProject(id: string): Observable<Response<string, 'id'>>;
     addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     deleteProjectMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>>;

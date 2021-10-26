@@ -1,24 +1,7 @@
 /**
- * @license
- *
- * Copyright (C) 2020 narra.eu
- *
- * This file is part of Narra Angular API.
- *
- * Narra Angular API is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Narra Angular API is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Michal Mocnak <michal@narra.eu>
+ * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+ * Copyright: (c) 2021, Narra Project
+ * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
 import {Injectable} from '@angular/core';
@@ -61,27 +44,27 @@ export class UserService {
       );
   }
 
-  // GET user '/v1/users/{username}'
-  public getUser(username: string, filter?: Filter): Observable<Response<User, 'user'>> {
-    return this.http.get<any>(this.serverService.query('users/' + username, filter))
+  // GET user '/v1/users/{email}'
+  public getUser(email: string, filter?: Filter): Observable<Response<User, 'user'>> {
+    return this.http.get<any>(this.serverService.query('users/' + email, filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
       );
   }
 
-  // GET delete user '/v1/users/{username}/delete'
-  public deleteUser(username: string): Observable<Response<string, 'username'>> {
-    return this.http.get<any>(this.serverService.query('users/' + username + '/delete'))
+  // GET delete user '/v1/users/{email}/delete'
+  public deleteUser(email: string): Observable<Response<string, 'email'>> {
+    return this.http.get<any>(this.serverService.query('users/' + email + '/delete'))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
       );
   }
 
-  // POST update user '/v1/users/{username}/update'
+  // POST update user '/v1/users/{email}/update'
   public updateUser(user: User, filter?: Filter): Observable<Response<User, 'user'>> {
-    return this.http.post<any>(this.serverService.query('users/' + user.username + '/update', filter), user, this.httpOptions)
+    return this.http.post<any>(this.serverService.query('users/' + user.email + '/update', filter), user, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

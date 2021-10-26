@@ -1,4 +1,6 @@
 /**
  * Generated bundle index. Do not edit.
  */
-export * from './public-api';
+export * from './public_api';
+
+//# sourceMappingURL=narra-api.d.ts.map

@@ -1,30 +1,13 @@
 /**
- * @license
- *
- * Copyright (C) 2020 narra.eu
- *
- * This file is part of Narra Angular API.
- *
- * Narra Angular API is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Narra Angular API is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Michal Mocnak <michal@narra.eu>
+ * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+ * Copyright: (c) 2021, Narra Project
+ * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Module, Filter, Response} from '../models';
+import {Module, Filter, Response, Log} from '../models';
 import {catchError, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
 import {ErrorHelper} from '../helpers';
@@ -37,7 +20,7 @@ export class SystemService {
   constructor(private http: HttpClient, private serverService: ServerService) {
   }
 
-  // GET users '/v1/system/version'
+  // GET version '/v1/system/version'
   public getVersion(filter?: Filter): Observable<Response<string, 'version'>> {
     return this.http.get<any>(this.serverService.query('system/version', filter))
       .pipe(
@@ -46,9 +29,18 @@ export class SystemService {
       );
   }
 
-  // GET users '/v1/system/modules'
+  // GET modules '/v1/system/modules'
   public getModules(filter?: Filter): Observable<Response<Module[], 'modules'>> {
     return this.http.get<any>(this.serverService.query('system/modules', filter))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // GET log '/v1/system/logs'
+  public getLogs(filter?: Filter): Observable<Response<Log[], 'logs'>> {
+    return this.http.get<any>(this.serverService.query('system/logs', filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)

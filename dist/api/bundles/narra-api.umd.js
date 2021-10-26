@@ -5,26 +5,9 @@
 }(this, (function (exports, rxjs, i0, i1, operators) { 'use strict';
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var EventStatus;
     (function (EventStatus) {
@@ -34,26 +17,9 @@
     })(EventStatus || (EventStatus = {}));
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ItemType;
     (function (ItemType) {
@@ -64,26 +30,9 @@
     })(ItemType || (ItemType = {}));
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var QueryOperator;
     (function (QueryOperator) {
@@ -92,26 +41,9 @@
     })(QueryOperator || (QueryOperator = {}));
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var RoleType;
     (function (RoleType) {
@@ -120,26 +52,9 @@
     })(RoleType || (RoleType = {}));
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ScenarioType;
     (function (ScenarioType) {
@@ -148,49 +63,15 @@
     })(ScenarioType || (ScenarioType = {}));
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ErrorHelper = /** @class */ (function () {
         function ErrorHelper() {
@@ -213,26 +94,9 @@
     }());
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var MetaHelper = /** @class */ (function () {
         function MetaHelper() {
@@ -246,72 +110,21 @@
     }());
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ServerService = /** @class */ (function () {
         function ServerService() {
@@ -413,26 +226,47 @@
     ServerService.ctorParameters = function () { return []; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+     */
+    var ActionService = /** @class */ (function () {
+        function ActionService(http, serverService) {
+            this.http = http;
+            this.serverService = serverService;
+            this.httpOptions = {
+                headers: new i1.HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+            };
+        }
+        // GET actions '/v1/actions'
+        ActionService.prototype.getActions = function (filter) {
+            return this.http.get(this.serverService.query('actions', filter))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // POST perform action '/v1/action/:identifier/perform'
+        ActionService.prototype.performAction = function (items, action, filter) {
+            return this.http.post(this.serverService.query("actions/" + action.identifier + "/perform", filter), { items: items }, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        return ActionService;
+    }());
+    ActionService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ActionService_Factory() { return new ActionService(i0.ɵɵinject(i1.HttpClient), i0.ɵɵinject(ServerService)); }, token: ActionService, providedIn: "root" });
+    ActionService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    ActionService.ctorParameters = function () { return [
+        { type: i1.HttpClient },
+        { type: ServerService }
+    ]; };
+
+    /**
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ConnectorService = /** @class */ (function () {
         function ConnectorService(http, serverService) {
@@ -458,26 +292,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var EventService = /** @class */ (function () {
         function EventService(http, serverService) {
@@ -504,26 +321,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var GeneratorService = /** @class */ (function () {
         function GeneratorService(http, serverService) {
@@ -549,26 +349,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ItemService = /** @class */ (function () {
         function ItemService(http, serverService) {
@@ -624,26 +407,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var LibraryService = /** @class */ (function () {
         function LibraryService(http, serverService) {
@@ -729,26 +495,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ProjectService = /** @class */ (function () {
         function ProjectService(http, serverService) {
@@ -846,26 +595,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ProviderService = /** @class */ (function () {
         function ProviderService(http, serverService) {
@@ -891,26 +623,37 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+     */
+    var ReturnService = /** @class */ (function () {
+        function ReturnService(http, serverService) {
+            this.http = http;
+            this.serverService = serverService;
+        }
+        // GET return '/v1/returns/:id'
+        ReturnService.prototype.getReturn = function (id, filter) {
+            return this.http.get(this.serverService.query('returns/' + id, filter))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        return ReturnService;
+    }());
+    ReturnService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ReturnService_Factory() { return new ReturnService(i0.ɵɵinject(i1.HttpClient), i0.ɵɵinject(ServerService)); }, token: ReturnService, providedIn: "root" });
+    ReturnService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    ReturnService.ctorParameters = function () { return [
+        { type: i1.HttpClient },
+        { type: ServerService }
+    ]; };
+
+    /**
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var ScenarioService = /** @class */ (function () {
         function ScenarioService(http, serverService) {
@@ -941,26 +684,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var SettingService = /** @class */ (function () {
         function SettingService(http, serverService) {
@@ -1006,26 +732,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var SynthesizerService = /** @class */ (function () {
         function SynthesizerService(http, serverService) {
@@ -1051,40 +760,28 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var SystemService = /** @class */ (function () {
         function SystemService(http, serverService) {
             this.http = http;
             this.serverService = serverService;
         }
-        // GET users '/v1/system/version'
+        // GET version '/v1/system/version'
         SystemService.prototype.getVersion = function (filter) {
             return this.http.get(this.serverService.query('system/version', filter))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // GET users '/v1/system/modules'
+        // GET modules '/v1/system/modules'
         SystemService.prototype.getModules = function (filter) {
             return this.http.get(this.serverService.query('system/modules', filter))
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // GET log '/v1/system/logs'
+        SystemService.prototype.getLogs = function (filter) {
+            return this.http.get(this.serverService.query('system/logs', filter))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return SystemService;
@@ -1101,26 +798,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var UploadService = /** @class */ (function () {
         function UploadService(http, serverService) {
@@ -1153,26 +833,9 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
     var UserService = /** @class */ (function () {
         function UserService(http, serverService) {
@@ -1194,19 +857,19 @@
             return this.http.get(this.serverService.query('users', filter))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // GET user '/v1/users/{username}'
-        UserService.prototype.getUser = function (username, filter) {
-            return this.http.get(this.serverService.query('users/' + username, filter))
+        // GET user '/v1/users/{email}'
+        UserService.prototype.getUser = function (email, filter) {
+            return this.http.get(this.serverService.query('users/' + email, filter))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // GET delete user '/v1/users/{username}/delete'
-        UserService.prototype.deleteUser = function (username) {
-            return this.http.get(this.serverService.query('users/' + username + '/delete'))
+        // GET delete user '/v1/users/{email}/delete'
+        UserService.prototype.deleteUser = function (email) {
+            return this.http.get(this.serverService.query('users/' + email + '/delete'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // POST update user '/v1/users/{username}/update'
+        // POST update user '/v1/users/{email}/update'
         UserService.prototype.updateUser = function (user, filter) {
-            return this.http.post(this.serverService.query('users/' + user.username + '/update', filter), user, this.httpOptions)
+            return this.http.post(this.serverService.query('users/' + user.email + '/update', filter), user, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return UserService;
@@ -1223,49 +886,15 @@
     ]; };
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
 
     /**
-     * @license
-     *
-     * Copyright (C) 2020 narra.eu
-     *
-     * This file is part of Narra Angular API.
-     *
-     * Narra Angular API is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * Narra Angular API is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with Narra Angular API. If not, see <http://www.gnu.org/licenses/>.
-     *
-     * Authors: Michal Mocnak <michal@narra.eu>
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
 
     var index = /*#__PURE__*/Object.freeze({
@@ -1277,6 +906,7 @@
         get ScenarioType () { return ScenarioType; },
         ErrorHelper: ErrorHelper,
         MetaHelper: MetaHelper,
+        ActionService: ActionService,
         ConnectorService: ConnectorService,
         EventService: EventService,
         GeneratorService: GeneratorService,
@@ -1284,6 +914,7 @@
         LibraryService: LibraryService,
         ProjectService: ProjectService,
         ProviderService: ProviderService,
+        ReturnService: ReturnService,
         ScenarioService: ScenarioService,
         ServerService: ServerService,
         SettingService: SettingService,
@@ -1293,8 +924,10 @@
         UserService: UserService
     });
 
-    /*
-     * Public API Surface of @narra/api
+    /**
+     * Copyright: (c) 2021, Michal Mocnak <michal@narra.eu>, Eric Rosenzveig <eric@narra.eu>
+     * Copyright: (c) 2021, Narra Project
+     * GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
      */
 
     /**
