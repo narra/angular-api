@@ -857,19 +857,19 @@
             return this.http.get(this.serverService.query('users', filter))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // GET user '/v1/users/{email}'
-        UserService.prototype.getUser = function (email, filter) {
-            return this.http.get(this.serverService.query('users/' + email, filter))
+        // GET user '/v1/users/{id}'
+        UserService.prototype.getUser = function (id, filter) {
+            return this.http.get(this.serverService.query('users/' + id, filter))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // GET delete user '/v1/users/{email}/delete'
-        UserService.prototype.deleteUser = function (email) {
-            return this.http.get(this.serverService.query('users/' + email + '/delete'))
+        // GET delete user '/v1/users/{id}/delete'
+        UserService.prototype.deleteUser = function (id) {
+            return this.http.get(this.serverService.query('users/' + id + '/delete'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // POST update user '/v1/users/{email}/update'
+        // POST update user '/v1/users/{id}/update'
         UserService.prototype.updateUser = function (user, filter) {
-            return this.http.post(this.serverService.query('users/' + user.email + '/update', filter), user, this.httpOptions)
+            return this.http.post(this.serverService.query('users/' + user.id + '/update', filter), user, this.httpOptions)
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         return UserService;

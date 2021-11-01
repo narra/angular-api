@@ -14,7 +14,7 @@ export declare class UserService {
     constructor(http: HttpClient, serverService: ServerService);
     getLoggedUser(filter?: Filter): Observable<Response<User, 'user'>>;
     getUsers(filter?: Filter): Observable<Response<User[], 'users'>>;
-    getUser(email: string, filter?: Filter): Observable<Response<User, 'user'>>;
-    deleteUser(email: string): Observable<Response<string, 'email'>>;
+    getUser(id: string, filter?: Filter): Observable<Response<User, 'user'>>;
+    deleteUser(id: string): Observable<Response<string, 'id'>>;
     updateUser(user: User, filter?: Filter): Observable<Response<User, 'user'>>;
 }

@@ -1014,19 +1014,19 @@ class UserService {
         return this.http.get(this.serverService.query('users', filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // GET user '/v1/users/{email}'
-    getUser(email, filter) {
-        return this.http.get(this.serverService.query('users/' + email, filter))
+    // GET user '/v1/users/{id}'
+    getUser(id, filter) {
+        return this.http.get(this.serverService.query('users/' + id, filter))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // GET delete user '/v1/users/{email}/delete'
-    deleteUser(email) {
-        return this.http.get(this.serverService.query('users/' + email + '/delete'))
+    // GET delete user '/v1/users/{id}/delete'
+    deleteUser(id) {
+        return this.http.get(this.serverService.query('users/' + id + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // POST update user '/v1/users/{email}/update'
+    // POST update user '/v1/users/{id}/update'
     updateUser(user, filter) {
-        return this.http.post(this.serverService.query('users/' + user.email + '/update', filter), user, this.httpOptions)
+        return this.http.post(this.serverService.query('users/' + user.id + '/update', filter), user, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
 }

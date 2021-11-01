@@ -44,27 +44,27 @@ export class UserService {
       );
   }
 
-  // GET user '/v1/users/{email}'
-  public getUser(email: string, filter?: Filter): Observable<Response<User, 'user'>> {
-    return this.http.get<any>(this.serverService.query('users/' + email, filter))
+  // GET user '/v1/users/{id}'
+  public getUser(id: string, filter?: Filter): Observable<Response<User, 'user'>> {
+    return this.http.get<any>(this.serverService.query('users/' + id, filter))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
       );
   }
 
-  // GET delete user '/v1/users/{email}/delete'
-  public deleteUser(email: string): Observable<Response<string, 'email'>> {
-    return this.http.get<any>(this.serverService.query('users/' + email + '/delete'))
+  // GET delete user '/v1/users/{id}/delete'
+  public deleteUser(id: string): Observable<Response<string, 'id'>> {
+    return this.http.get<any>(this.serverService.query('users/' + id + '/delete'))
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
       );
   }
 
-  // POST update user '/v1/users/{email}/update'
+  // POST update user '/v1/users/{id}/update'
   public updateUser(user: User, filter?: Filter): Observable<Response<User, 'user'>> {
-    return this.http.post<any>(this.serverService.query('users/' + user.email + '/update', filter), user, this.httpOptions)
+    return this.http.post<any>(this.serverService.query('users/' + user.id + '/update', filter), user, this.httpOptions)
       .pipe(
         retry(1),
         catchError(ErrorHelper.handleError)
