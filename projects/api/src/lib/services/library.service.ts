@@ -9,7 +9,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Item, Library, Meta, Pagination, Project, Filter, Response, Query} from '../models';
+import {Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -105,6 +105,31 @@ export class LibraryService {
         retry(1),
         catchError(ErrorHelper.handleError)
       );
+  }
+
+  // POST export project '/v1/libraries/{id}/export'
+  public exportLibrary(id: string): Observable<Response<Return, 'return'>> {
+    return this.http.get<any>(this.serverService.query('libraries/' + id + '/export'))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST import library '/v1/libraries/{id}/import'
+  public importLibrary(id: string, file: File): Observable<any> {
+    // prepare data
+    const uploadData = new FormData();
+    // set file
+    uploadData.append('file', file);
+    // upload
+    return this.http.post<any>(this.serverService.query('libraries/' + id + '/import'), uploadData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      retry(1),
+      catchError(ErrorHelper.handleError)
+    );
   }
 
   // POST new library metadata '/v1/libraries/{name}/metadata/new'

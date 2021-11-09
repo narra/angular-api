@@ -632,6 +632,23 @@ class LibraryService {
         return this.http.get(this.serverService.query('libraries/' + id + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
+    // POST export project '/v1/libraries/{id}/export'
+    exportLibrary(id) {
+        return this.http.get(this.serverService.query('libraries/' + id + '/export'))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST import library '/v1/libraries/{id}/import'
+    importLibrary(id, file) {
+        // prepare data
+        const uploadData = new FormData();
+        // set file
+        uploadData.append('file', file);
+        // upload
+        return this.http.post(this.serverService.query('libraries/' + id + '/import'), uploadData, {
+            reportProgress: true,
+            observe: 'events'
+        }).pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
     // POST new library metadata '/v1/libraries/{name}/metadata/new'
     addLibraryMeta(id, meta, filter) {
         return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new', filter), meta, this.httpOptions)
@@ -721,27 +738,44 @@ class ProjectService {
         return this.http.post(this.serverService.query('projects/new', filter), project, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // POST update project '/v1/projects/{name}/update'
+    // POST update project '/v1/projects/{id}/update'
     updateProject(project, filter) {
         return this.http.post(this.serverService.query('projects/' + project.id + '/update', filter), project, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // GET delete project '/v1/projects/{name}/delete'
+    // GET delete project '/v1/projects/{id}/delete'
     deleteProject(id) {
         return this.http.get(this.serverService.query('projects/' + id + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // POST new project metadata '/v1/projects/{name}/metadata/new'
+    // POST export project '/v1/projects/{id}/export'
+    exportProject(id) {
+        return this.http.get(this.serverService.query('projects/' + id + '/export'))
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST export project '/v1/projects/{id}/export'
+    importProject(id, file) {
+        // prepare data
+        const uploadData = new FormData();
+        // set file
+        uploadData.append('file', file);
+        // upload
+        return this.http.post(this.serverService.query('projects/' + id + '/import'), uploadData, {
+            reportProgress: true,
+            observe: 'events'
+        }).pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST new project metadata '/v1/projects/{id}/metadata/new'
     addProjectMeta(id, meta, filter) {
         return this.http.post(this.serverService.query('projects/' + id + '/metadata/new', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
+    // POST update project metadata '/v1/projects/{id}/metadata/{meta}/update'
     updateProjectMeta(id, meta, filter) {
         return this.http.post(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update', filter), meta, this.httpOptions)
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
+    // GET delete project metadata '/v1/projects/{id}/metadata/{meta}/delete'
     deleteProjectMeta(id, meta) {
         return this.http.get(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));

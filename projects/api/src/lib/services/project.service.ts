@@ -9,7 +9,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Item, Library, Meta, Pagination, Project, Filter, Response, Query} from '../models';
+import {Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -101,7 +101,7 @@ export class ProjectService {
       );
   }
 
-  // POST update project '/v1/projects/{name}/update'
+  // POST update project '/v1/projects/{id}/update'
   public updateProject(project: Project, filter?: Filter): Observable<Response<Project, 'project'>> {
     return this.http.post<any>(this.serverService.query('projects/' + project.id + '/update', filter), project, this.httpOptions)
       .pipe(
@@ -110,7 +110,7 @@ export class ProjectService {
       );
   }
 
-  // GET delete project '/v1/projects/{name}/delete'
+  // GET delete project '/v1/projects/{id}/delete'
   public deleteProject(id: string): Observable<Response<string, 'id'>> {
     return this.http.get<any>(this.serverService.query('projects/' + id + '/delete'))
       .pipe(
@@ -119,7 +119,32 @@ export class ProjectService {
       );
   }
 
-  // POST new project metadata '/v1/projects/{name}/metadata/new'
+  // POST export project '/v1/projects/{id}/export'
+  public exportProject(id: string): Observable<Response<Return, 'return'>> {
+    return this.http.get<any>(this.serverService.query('projects/' + id + '/export'))
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
+  }
+
+  // POST export project '/v1/projects/{id}/export'
+  public importProject(id: string, file: File): Observable<any> {
+    // prepare data
+    const uploadData = new FormData();
+    // set file
+    uploadData.append('file', file);
+    // upload
+    return this.http.post<any>(this.serverService.query('projects/' + id + '/import'), uploadData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      retry(1),
+      catchError(ErrorHelper.handleError)
+    );
+  }
+
+  // POST new project metadata '/v1/projects/{id}/metadata/new'
   public addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>> {
     return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/new', filter), meta, this.httpOptions)
       .pipe(
@@ -128,7 +153,7 @@ export class ProjectService {
       );
   }
 
-  // POST update project metadata '/v1/projects/{name}/metadata/{meta}/update'
+  // POST update project metadata '/v1/projects/{id}/metadata/{meta}/update'
   public updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>> {
     return this.http.post<any>(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/update', filter), meta, this.httpOptions)
       .pipe(
@@ -137,7 +162,7 @@ export class ProjectService {
       );
   }
 
-  // GET delete project metadata '/v1/projects/{name}/metadata/{meta}/delete'
+  // GET delete project metadata '/v1/projects/{id}/metadata/{meta}/delete'
   public deleteProjectMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>> {
     return this.http.get<any>(this.serverService.query('projects/' + id + '/metadata/' + meta.name + '/delete'))
       .pipe(
