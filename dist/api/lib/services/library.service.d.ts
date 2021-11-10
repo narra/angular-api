@@ -6,7 +6,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Item, Library, Meta, Pagination, Filter, Response, Query, Return } from '../models';
+import { Item, Library, Meta, Pagination, Filter, Response, Query, Return, Event } from '../models';
 export declare class LibraryService {
     private http;
     private serverService;
@@ -23,6 +23,7 @@ export declare class LibraryService {
     deleteLibrary(id: string): Observable<Response<string, 'id'>>;
     exportLibrary(id: string): Observable<Response<Return, 'return'>>;
     importLibrary(id: string, file: File): Observable<any>;
+    copyLibrary(id: string, destination: string): Observable<Response<Event, 'event'>>;
     addLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     updateLibraryMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     deleteLibraryMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>>;

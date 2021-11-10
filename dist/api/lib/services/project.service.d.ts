@@ -6,7 +6,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerService } from './server.service';
-import { Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return } from '../models';
+import { Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return, Event } from '../models';
 export declare class ProjectService {
     private http;
     private serverService;
@@ -23,6 +23,7 @@ export declare class ProjectService {
     deleteProject(id: string): Observable<Response<string, 'id'>>;
     exportProject(id: string): Observable<Response<Return, 'return'>>;
     importProject(id: string, file: File): Observable<any>;
+    copyProject(id: string, destination: string): Observable<Response<Event, 'event'>>;
     addProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     updateProjectMeta(id: string, meta: Pick<Meta, 'name' | 'value'>, filter?: Filter): Observable<Response<Meta, 'metadata'>>;
     deleteProjectMeta(id: string, meta: Pick<Meta, 'name'>): Observable<Response<string, 'name'>>;

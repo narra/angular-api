@@ -649,6 +649,11 @@ class LibraryService {
             observe: 'events'
         }).pipe(retry(1), catchError(ErrorHelper.handleError));
     }
+    // POST copy library '/v1/libraries/{id}/copy'
+    copyLibrary(id, destination) {
+        return this.http.post(this.serverService.query('libraries/' + id + '/copy'), { destination }, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
     // POST new library metadata '/v1/libraries/{name}/metadata/new'
     addLibraryMeta(id, meta, filter) {
         return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new', filter), meta, this.httpOptions)
@@ -748,7 +753,7 @@ class ProjectService {
         return this.http.get(this.serverService.query('projects/' + id + '/delete'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
-    // POST export project '/v1/projects/{id}/export'
+    // GET export project '/v1/projects/{id}/export'
     exportProject(id) {
         return this.http.get(this.serverService.query('projects/' + id + '/export'))
             .pipe(retry(1), catchError(ErrorHelper.handleError));
@@ -764,6 +769,11 @@ class ProjectService {
             reportProgress: true,
             observe: 'events'
         }).pipe(retry(1), catchError(ErrorHelper.handleError));
+    }
+    // POST copy project '/v1/projects/{id}/copy'
+    copyProject(id, destination) {
+        return this.http.post(this.serverService.query('projects/' + id + '/copy'), { destination }, this.httpOptions)
+            .pipe(retry(1), catchError(ErrorHelper.handleError));
     }
     // POST new project metadata '/v1/projects/{id}/metadata/new'
     addProjectMeta(id, meta, filter) {

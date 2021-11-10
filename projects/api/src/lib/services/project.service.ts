@@ -9,7 +9,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return} from '../models';
+import {Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return, Event} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -119,7 +119,7 @@ export class ProjectService {
       );
   }
 
-  // POST export project '/v1/projects/{id}/export'
+  // GET export project '/v1/projects/{id}/export'
   public exportProject(id: string): Observable<Response<Return, 'return'>> {
     return this.http.get<any>(this.serverService.query('projects/' + id + '/export'))
       .pipe(
@@ -142,6 +142,15 @@ export class ProjectService {
       retry(1),
       catchError(ErrorHelper.handleError)
     );
+  }
+
+  // POST copy project '/v1/projects/{id}/copy'
+  public copyProject(id: string, destination: string): Observable<Response<Event, 'event'>> {
+    return this.http.post<any>(this.serverService.query('projects/' + id + '/copy'), {destination}, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
   }
 
   // POST new project metadata '/v1/projects/{id}/metadata/new'

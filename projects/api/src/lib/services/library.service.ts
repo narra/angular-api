@@ -9,7 +9,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {ServerService} from './server.service';
-import {Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return} from '../models';
+import {Item, Library, Meta, Pagination, Project, Filter, Response, Query, Return, Event} from '../models';
 import {ErrorHelper} from '../helpers';
 
 @Injectable({
@@ -130,6 +130,15 @@ export class LibraryService {
       retry(1),
       catchError(ErrorHelper.handleError)
     );
+  }
+
+  // POST copy library '/v1/libraries/{id}/copy'
+  public copyLibrary(id: string, destination: string): Observable<Response<Event, 'event'>> {
+    return this.http.post<any>(this.serverService.query('libraries/' + id + '/copy'), {destination}, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(ErrorHelper.handleError)
+      );
   }
 
   // POST new library metadata '/v1/libraries/{name}/metadata/new'

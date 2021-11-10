@@ -483,6 +483,11 @@
                 observe: 'events'
             }).pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
+        // POST copy library '/v1/libraries/{id}/copy'
+        LibraryService.prototype.copyLibrary = function (id, destination) {
+            return this.http.post(this.serverService.query('libraries/' + id + '/copy'), { destination: destination }, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
         // POST new library metadata '/v1/libraries/{name}/metadata/new'
         LibraryService.prototype.addLibraryMeta = function (id, meta, filter) {
             return this.http.post(this.serverService.query('libraries/' + id + '/metadata/new', filter), meta, this.httpOptions)
@@ -583,7 +588,7 @@
             return this.http.get(this.serverService.query('projects/' + id + '/delete'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
-        // POST export project '/v1/projects/{id}/export'
+        // GET export project '/v1/projects/{id}/export'
         ProjectService.prototype.exportProject = function (id) {
             return this.http.get(this.serverService.query('projects/' + id + '/export'))
                 .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
@@ -599,6 +604,11 @@
                 reportProgress: true,
                 observe: 'events'
             }).pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
+        };
+        // POST copy project '/v1/projects/{id}/copy'
+        ProjectService.prototype.copyProject = function (id, destination) {
+            return this.http.post(this.serverService.query('projects/' + id + '/copy'), { destination: destination }, this.httpOptions)
+                .pipe(operators.retry(1), operators.catchError(ErrorHelper.handleError));
         };
         // POST new project metadata '/v1/projects/{id}/metadata/new'
         ProjectService.prototype.addProjectMeta = function (id, meta, filter) {
